@@ -7,7 +7,7 @@ namespace SimplifiedMortgageRefi.Models
         public int Id { get; set; }
         public string Source { get; set; }
         public bool IsIncluded { get; set; }
-        public decimal MonthlyGross { get; set; }
+        public double MonthlyGross { get; set; }
 
         [ForeignKey("Loan Profile")]
         public int LoanProfileId { get; set; }
