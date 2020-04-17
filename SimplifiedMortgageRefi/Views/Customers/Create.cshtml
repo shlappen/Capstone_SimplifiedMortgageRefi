@@ -1,39 +1,92 @@
-﻿@model SimplifiedMortgageRefi.Models.Customer
+﻿@model SimplifiedMortgageRefi.Models.CreateCustomerViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Your Profile";
 }
+    <h1>@ViewData["Title"]</h1>
+<body class="bg-gradient-primary">
 
-<h1>Create</h1>
+    <div class="container">
 
-<h4>Customer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-create-image"></div>
+
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Tell us about you</h1>
+                            </div>
+                              <hr />
+                            <div class="row">
+                                <div>
+                                    <form asp-action="Create">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                @*<label asp-for="@Model.Customer.FirstName" class="control-label"></label>*@
+                                                <input asp-for="@Model.Customer.FirstName" class="form-control form-control-user" placeholder="First Name"/>
+                                                <span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @*<label asp-for="@Model.Customer.LastName" class="control-label"></label>*@
+                                                <input asp-for="@Model.Customer.LastName" class="form-control form-control-user" placeholder="Last Name"/>
+                                                <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                            <div class="form-group">
+                                                @*<label asp-for="@Model.Address.Street" class="control-label"></label>*@
+                                                <input asp-for="@Model.Address.Street" class="form-control" placeholder="Street Address"/>
+                                                <span asp-validation-for="@Model.Address.Street" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-sm-5 mb-3 mb-sm-0">
+                                                    <label asp-for="@Model.Address.City" class="control-label"></label>
+                                                    <input asp-for="@Model.Address.City" class="form-control form-control-user" />
+                                                    <span asp-validation-for="@Model.Address.City" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label asp-for="Address.State" class="control-label"></label>
+                                                    <select asp-for="Address.State" class="form-control form-control-user" asp-items="ViewBag.States"></select>
+                                                </div>
+
+                                                <div class="col-sm-3">
+                                                    <label  class="control-label">Zip</label>
+                                                    <input asp-for="@Model.Address.ZipCode" class="form-control form-control-user" />
+                                                    <span asp-validation-for="@Model.Address.ZipCode" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        <div>
+                                            What is your goal in refinancing your mortgage?
+                                        </div>
+                                        <div>
+
+                                        </div>
+                                        <br/>
+
+                                                <div class="form-group">
+                                                    <input type="submit" value="Submit" class="btn btn-primary" />
+                                                </div>
+</form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
+        </div>
+      </div>
+</body>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                            @*<div>
+                                    <a asp-action="Index">Back to List</a>
+                                </div>*@
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

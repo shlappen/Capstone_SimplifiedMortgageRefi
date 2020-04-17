@@ -12,6 +12,9 @@ using SimplifiedMortgageRefi.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
+using SimplifiedMortgageRefi.ActionFilters;
+using Microsoft.AspNetCore.Http;
 
 namespace SimplifiedMortgageRefi
 {
@@ -35,6 +38,9 @@ namespace SimplifiedMortgageRefi
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+            services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User); 
+            services.AddControllers(config => { config.Filters.Add(typeof(GlobalRouting)); 
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();

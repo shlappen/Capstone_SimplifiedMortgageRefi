@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimplifiedMortgageRefi.Areas.Identity.Pages.Account
 {
@@ -52,6 +53,8 @@ namespace SimplifiedMortgageRefi.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)

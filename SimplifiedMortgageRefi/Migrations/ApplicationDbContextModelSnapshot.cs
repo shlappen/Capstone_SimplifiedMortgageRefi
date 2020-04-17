@@ -48,15 +48,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8f6d7ece-8640-406c-9cbf-7fce71b90b74",
-                            ConcurrencyStamp = "089538f2-3067-48f4-be20-08b686bf8ad1",
+                            Id = "888d7eb1-edfe-453d-ac90-ef411df295eb",
+                            ConcurrencyStamp = "12ee3aee-5d34-45e5-a456-0d1421669c66",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "cad0610a-9faa-472d-9a11-4ce377beb1fb",
-                            ConcurrencyStamp = "894cb211-6d37-4bbf-8c83-554e21980358",
+                            Id = "cb36fa99-fe2e-4256-85f8-d680ffa30597",
+                            ConcurrencyStamp = "cb260c55-9c11-4edf-bb55-35b192f1b8a3",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -242,9 +242,8 @@ namespace SimplifiedMortgageRefi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StateId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -256,7 +255,9 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.ToTable("Address");
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Application", b =>
@@ -274,7 +275,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Application");
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Applications_Customers", b =>
@@ -318,7 +319,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasIndex("LenderId");
 
-                    b.ToTable("Contact");
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Customer", b =>
@@ -343,7 +344,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Customers_Properties", b =>
@@ -384,7 +385,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasIndex("LoanProfileId");
 
-                    b.ToTable("Income");
+                    b.ToTable("Incomes");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Lender", b =>
@@ -394,13 +395,18 @@ namespace SimplifiedMortgageRefi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lender");
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Lenders");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liability", b =>
@@ -442,7 +448,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasIndex("LoanProfileId");
 
-                    b.ToTable("Liability");
+                    b.ToTable("Liabilities");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.LiabilityType", b =>
@@ -457,7 +463,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LiabilityType");
+                    b.ToTable("LiabilityTypes");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.LoanProfile", b =>
@@ -506,7 +512,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasIndex("PurposeId");
 
-                    b.ToTable("LoanProfile");
+                    b.ToTable("LoanProfiles");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.OccupancyType", b =>
@@ -521,7 +527,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OccupancyType");
+                    b.ToTable("OccupancyTypes");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Property", b =>
@@ -569,7 +575,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasIndex("PropertyTypeId");
 
-                    b.ToTable("Property");
+                    b.ToTable("Properties");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.PropertyType", b =>
@@ -584,7 +590,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PropertyType");
+                    b.ToTable("PropertyTypes");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Purpose", b =>
@@ -599,7 +605,355 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Purpose");
+                    b.ToTable("Purposes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "lower my rate and payment."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "tap into my equity."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "shorten my term so I can pay less interest in the long run."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "other"
+                        });
+                });
+
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.USState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Abbreviation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("States");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Abbreviation = "AL",
+                            Name = "Alabama"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Abbreviation = "AK",
+                            Name = "Alaska"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Abbreviation = "AZ",
+                            Name = "Arizona"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Abbreviation = "AR",
+                            Name = "Arkansas"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Abbreviation = "CA",
+                            Name = "California"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Abbreviation = "CO",
+                            Name = "Colorado"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Abbreviation = "CT",
+                            Name = "Connecticut"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Abbreviation = "DC",
+                            Name = "District of Columbia"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Abbreviation = "DE",
+                            Name = "Delaware"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Abbreviation = "FL",
+                            Name = "Florida"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Abbreviation = "GA",
+                            Name = "Georgia"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Abbreviation = "HI",
+                            Name = "Hawaii"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Abbreviation = "ID",
+                            Name = "Idaho"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Abbreviation = "IL",
+                            Name = "Illinois"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Abbreviation = "IN",
+                            Name = "Indiana"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Abbreviation = "IA",
+                            Name = "Iowa"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Abbreviation = "KS",
+                            Name = "Kansas"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Abbreviation = "KY",
+                            Name = "Kentucky"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Abbreviation = "LA",
+                            Name = "Louisiana"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Abbreviation = "ME",
+                            Name = "Maine"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Abbreviation = "MD",
+                            Name = "Maryland"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Abbreviation = "MA",
+                            Name = "Massachusetts"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Abbreviation = "MI",
+                            Name = "Michigan"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Abbreviation = "MN",
+                            Name = "Minnesota"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Abbreviation = "MS",
+                            Name = "Mississippi"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Abbreviation = "MO",
+                            Name = "Missouri"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Abbreviation = "MT",
+                            Name = "Montana"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Abbreviation = "NE",
+                            Name = "Nebraska"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Abbreviation = "NV",
+                            Name = "Nevada"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Abbreviation = "NH",
+                            Name = "New Hampshire"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Abbreviation = "NJ",
+                            Name = "New Jersey"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Abbreviation = "NM",
+                            Name = "New Mexico"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Abbreviation = "NY",
+                            Name = "New York"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Abbreviation = "NC",
+                            Name = "North Carolina"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Abbreviation = "ND",
+                            Name = "North Dakota"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Abbreviation = "OH",
+                            Name = "Ohio"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Abbreviation = "OK",
+                            Name = "Oklahoma"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Abbreviation = "OR",
+                            Name = "Oregon"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Abbreviation = "PA",
+                            Name = "Pennsylvania"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Abbreviation = "RH",
+                            Name = "Rhode Island"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Abbreviation = "SC",
+                            Name = "South Carolina"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Abbreviation = "SD",
+                            Name = "South Dakota"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Abbreviation = "TN",
+                            Name = "Tennessee"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Abbreviation = "TX",
+                            Name = "Texas"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Abbreviation = "UT",
+                            Name = "Utah"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Abbreviation = "VT",
+                            Name = "Vermont"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Abbreviation = "VA",
+                            Name = "Virginia"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Abbreviation = "WA",
+                            Name = "Washington"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Abbreviation = "WV",
+                            Name = "West Virginia"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Abbreviation = "WI",
+                            Name = "Wisconsin"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Abbreviation = "WY",
+                            Name = "Wyoming"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -649,6 +1003,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Address", b =>
+                {
+                    b.HasOne("SimplifiedMortgageRefi.Models.USState", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -712,6 +1075,13 @@ namespace SimplifiedMortgageRefi.Migrations
                         .HasForeignKey("LoanProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Lender", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liability", b =>

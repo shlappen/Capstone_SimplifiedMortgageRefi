@@ -19,7 +19,7 @@ namespace SimplifiedMortgageRefi.Controllers
             _context = context;
         }
 
-        // GET: Lenders
+        // GET: Customers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Lenders.Include(l => l.IdentityUser);
