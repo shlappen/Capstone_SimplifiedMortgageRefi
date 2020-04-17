@@ -12,5 +12,6 @@ namespace SimplifiedMortgageRefi.Models
         public Address Address { get; set; }
         public LoanProfile LoanProfile { get; set; }
 
+        public IEnumerable<USState> States { get; set; }
     }
 }

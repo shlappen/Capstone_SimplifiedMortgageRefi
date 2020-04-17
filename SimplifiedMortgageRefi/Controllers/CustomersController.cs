@@ -56,6 +56,8 @@ namespace SimplifiedMortgageRefi.Controllers
 
             ViewData["States"] = new SelectList(_context.States, "Id", "Name", "Select State");
             ViewData["Purposes"] = new SelectList(_context.Purposes, "Id", "Name", "Select");
+            ViewData["PropertyTypes"] = new SelectList(_context.PropertyTypes, "Id", "Name");
+            ViewData["OccupancyTypes"] = new SelectList(_context.OccupancyTypes, "Id", "Name");
             return View(createCustomerViewModel);
         }
 
@@ -66,31 +68,44 @@ namespace SimplifiedMortgageRefi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
             [Bind("FirstName,LastName")] Customer customer,
-            [Bind("Street, City, ZipCode, StateId")] Address address,
-            [Bind("PurposeId")] LoanProfile loanProfile,
-            Applications_Customers applications_Customers,
-            Customers_Properties customers_Properties,
-            Property property,
-            Application application)
-
+            [Bind("PropertyTypeId, OccupancyTypeId")] Property property,
+            [Bind("Street, City, StateId, ZipCode")] Address address,
+            [Bind("PurposeId")] LoanProfile loanProfile)
         {
             if (ModelState.IsValid)
             {
+                
                 //Get customer
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
-                _context.Add(customer); //Add customer to DB
-                _context.Add(address); //Add address to DB
                 
-                application.ApplicationStartDate = DateTime.Now;
-                _context.Add(application);
+                _context.Add(customer); //Add customer to DB
+
+                _context.Add(address); //Add address to DB
+                Application application = new Application();
+                application.ApplicationStartDate = DateTime.Now; //Timestamp application
+                _context.Add(application); //Add application to DB
+
                 _context.SaveChanges(); //give application, customer and address PKs
 
-                loanProfile.ApplicationId = application.Id;
+                Applications_Customers applications_Customers = new Applications_Customers();
+                applications_Customers.CustomerId = customer.Id;  //for Junction table
+                applications_Customers.ApplicationId = application.Id; //for Junction table
+                _context.Add(applications_Customers);
+
+                property.AddressId = address.AddressId;
+                _context.Add(property);
+
                 loanProfile.Originator = "Customer";
+                loanProfile.ApplicationId = application.Id;
+                _context.Add(loanProfile);
 
-                
+                _context.SaveChanges();
 
+                Customers_Properties customers_Properties = new Customers_Properties();
+                customers_Properties.CustomerId = customer.Id;
+                customers_Properties.PropertyId = property.Id;
+                _context.Add(customers_Properties);
                 
 
                 

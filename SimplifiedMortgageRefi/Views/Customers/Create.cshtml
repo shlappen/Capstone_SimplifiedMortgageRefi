@@ -44,26 +44,29 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-5 mb-3 mb-sm-0">
-                                                <label asp-for="@Model.Address.City" class="control-label"></label>
-                                                <input asp-for="@Model.Address.City" class="form-control form-control-user" />
+                                                <input asp-for="@Model.Address.City" class="form-control form-control-user" placeholder="City"/>
                                                 <span asp-validation-for="@Model.Address.City" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-4">
-                                                <label asp-for="@Model.Address.StateId" class="control-label"></label>
-                                                <select asp-for="@Model.Address.StateId" class="form-control form-control-user" asp-items="ViewBag.States"></select>
+                                                @*<label asp-for="@Model.Address.StateId" class="control-label"></label>*@
+                                                <select asp-for="@Model.Address.StateId" class="form-control form-control-user" asp-items=ViewBag.States placeholder="Select"></select>
                                             </div>
 
                                             <div class="col-sm-3">
-                                                <label class="control-label">Zip</label>
-                                                <input asp-for="@Model.Address.ZipCode" class="form-control form-control-user" />
+                                                @*<label class="control-label">Zip</label>*@
+                                                <input asp-for="@Model.Address.ZipCode" class="form-control form-control-user" placeholder="Zip" />
                                                 <span asp-validation-for="@Model.Address.ZipCode" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div>
+                                        <div class="form-group">
                                             <label class="control-label">Is this your primary residence?</label>
-                                            <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
+                                            <select asp-for="@Model.Property.OccupancyTypeId" class="form-control form-control-user" asp-items="ViewBag.OccupancyTypes"></select>
                                         </div>
-                                        <div>
+                                        <div class="form-group">
+                                            <label class="control-label">Please select the property type of this home.</label>
+                                            <select asp-for="@Model.Property.PropertyTypeId" class="form-control form-control-user" asp-items="ViewBag.PropertyTypes"></select>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="control-label">What is your goal in refinancing your mortgage?</label>
                                             <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
                                         </div>
