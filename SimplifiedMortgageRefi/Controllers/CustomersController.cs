@@ -94,10 +94,14 @@ namespace SimplifiedMortgageRefi.Controllers
                 _context.Add(applications_Customers);
 
                 property.AddressId = address.AddressId;
-                _context.Add(property);
+                _context.Add(property); // give Property a PK
 
+                
                 loanProfile.Originator = "Customer";
                 loanProfile.ApplicationId = application.Id;
+                if(loanProfile.PurposeId == 2)
+                { loanProfile.IsCashOut = true;
+                }
                 _context.Add(loanProfile);
 
                 _context.SaveChanges();
@@ -108,7 +112,6 @@ namespace SimplifiedMortgageRefi.Controllers
                 _context.Add(customers_Properties);
                 
 
-                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
