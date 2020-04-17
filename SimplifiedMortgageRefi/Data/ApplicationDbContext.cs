@@ -370,22 +370,76 @@ namespace SimplifiedMortgageRefi.Data
                 .HasData(new Purpose
                 {
                     Id = 1,
-                    Name = "lower my rate and payment."
+                    Name = "lower my rate and payment"
                 },
                 new Purpose
                 {
                     Id = 2,
-                    Name = "tap into my equity."
+                    Name = "tap into my equity"
                 },
                 new Purpose
                 {
                     Id = 3,
-                    Name = "shorten my term so I can pay less interest in the long run."
+                    Name = "shorten my term"
                 },
                 new Purpose
                 {
                     Id = 4,
                     Name = "other"
+                }
+            );
+                 builder.Entity<PropertyType>()
+                .HasData(new PropertyType
+                {
+                    Id = 1,
+                    Name = "Single Family"
+                },
+                new Purpose
+                {
+                    Id = 2,
+                    Name = "Condominium"
+                },
+                new Purpose
+                {
+                    Id = 3,
+                    Name = "Townhouse"
+                },
+                new Purpose
+                {
+                    Id = 4,
+                    Name = "Multi-Family"
+                },
+                new Purpose
+                {
+                    Id = 5,
+                    Name = "Other"
+                }
+            );
+                 builder.Entity<OccupancyType>()
+                .HasData(new PropertyType
+                {
+                    Id = 1,
+                    Name = "Primary Residence"
+                },
+                new Purpose
+                {
+                    Id = 2,
+                    Name = "Investment Property"
+                },
+                new Purpose
+                {
+                    Id = 3,
+                    Name = "Second Home"
+                },
+                new Purpose
+                {
+                    Id = 4,
+                    Name = "Family Member Lives Here"
+                },
+                new Purpose
+                {
+                    Id = 5,
+                    Name = "Other"
                 }
             );
 

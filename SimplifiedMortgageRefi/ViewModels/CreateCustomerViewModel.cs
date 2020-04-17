@@ -10,5 +10,7 @@ namespace SimplifiedMortgageRefi.Models
         public Customer Customer { get; set; }
         public Property Property { get; set; }
         public Address Address { get; set; }
+        public LoanProfile LoanProfile { get; set; }
+
     }
 }

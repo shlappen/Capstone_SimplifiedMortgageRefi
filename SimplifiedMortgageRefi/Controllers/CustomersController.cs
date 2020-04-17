@@ -50,13 +50,12 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var customerInDb = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefaultAsync();
+            CreateCustomerViewModel createCustomerViewModel = new CreateCustomerViewModel();
 
-            CreateCustomerViewModel createCustomerViewModel = new CreateCustomerViewModel()
-            {
-
-            };
-            ViewData["States"] = new SelectList(_context.States, "Name", "Name");
-            
+            ViewData["States"] = new SelectList(_context.States, "Id", "Name", "Select State");
+            ViewData["Purposes"] = new SelectList(_context.Purposes, "Id", "Name", "Select");
             return View(createCustomerViewModel);
         }
 
@@ -65,19 +64,39 @@ namespace SimplifiedMortgageRefi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,IdentityUserId")] Customer customer,
-            [Bind("Street, City, State, ZipCode, AddressId, Latitude, Longitude")] Address address)
+        public async Task<IActionResult> Create(
+            [Bind("FirstName,LastName")] Customer customer,
+            [Bind("Street, City, ZipCode, StateId")] Address address,
+            [Bind("PurposeId")] LoanProfile loanProfile,
+            Applications_Customers applications_Customers,
+            Customers_Properties customers_Properties,
+            Property property,
+            Application application)
 
         {
             if (ModelState.IsValid)
             {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier); 
+                //Get customer
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
-                _context.Add(customer);
+                _context.Add(customer); //Add customer to DB
+                _context.Add(address); //Add address to DB
+                
+                application.ApplicationStartDate = DateTime.Now;
+                _context.Add(application);
+                _context.SaveChanges(); //give application, customer and address PKs
+
+                loanProfile.ApplicationId = application.Id;
+                loanProfile.Originator = "Customer";
+
+                
+
+                
+
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
 
