@@ -93,7 +93,7 @@ namespace SimplifiedMortgageRefi.Controllers
                 applications_Customers.ApplicationId = application.Id; //for Junction table
                 _context.Add(applications_Customers);
 
-                property.AddressId = address.AddressId;
+                property.AddressId = address.AddressId; //Add AddressId as FK to property
                 _context.Add(property); // give Property a PK
 
                 
