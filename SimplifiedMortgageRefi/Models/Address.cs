@@ -7,7 +7,7 @@ namespace SimplifiedMortgageRefi.Models
 {
     public class Address
     {
-        public int AddressId { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage = "Street is required")]
         public string Street { get; set; }
         [Required(ErrorMessage = "City is required")]

@@ -444,6 +444,11 @@ namespace SimplifiedMortgageRefi.Data
             );
 
             builder.Entity<Application>()
+                .HasOne(a => a.Property)
+                .WithMany(b => b.Applications)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Application>()
                 .HasMany(a => a.LoanProfiles)
                 .WithOne(b => b.Application);
 

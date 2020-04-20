@@ -1,8 +1,8 @@
-﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel 
+﻿@model SimplifiedMortgageRefi.Models.Customer
 
 @{
     Layout = "_CustomerDashboard";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CreateCurrentMortgage";
 }
 
 @*<body>*@
@@ -133,8 +133,8 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Total Mortgage Costs</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                            <i class="fas fa-angle-double-up text-gray-400"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
@@ -146,26 +146,28 @@
                     </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="labelChart"></canvas>
+                <div class="collapse" id="piechart">
+                    <div class="card-body">
+                        <div class="chart-pie pt-4 pb-2">
+                            <canvas id="labelChart"></canvas>
 
+                        </div>
+                        @*<div class="mt-4 text-center small">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-primary"></i> Principal
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-success"></i> Interest
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-info"></i> Taxes
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle text-warning"></i> Insurance
+                                </span>
+
+                            </div>*@
                     </div>
-                    @*<div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Principal
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Interest
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Taxes
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-warning"></i> Insurance
-                        </span>
-
-                    </div>*@
                 </div>
             </div>
         </div>
@@ -179,44 +181,45 @@
                     <h6 class="m-0 font-weight-bold text-primary">Current Mortgage Details</h6>
                 </div>
                 <div class="p-3">
+                    
 
-
-                    <form class="user">
+                    <form class="user" asp-action="EditCurrentMortgage" >
+                        
                         @*<div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
-                                        <div class="input-group col-sm-7">
-                                            <div class="input-group-prepend bg-primary border-primary">
-                                                <span class="input-group-text bg-transparent text-white">$</span>
-                                            </div>
-                                            <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
-                                            <div class="input-group-append bg-primary border-primary">
-                                                <span class="input-group-text bg-transparent text-white">.00</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label for="example" class="col-form-label text-gray-900">Rate</label>
-                                        <div class="input-group col-sm-5">
-                                            <div class="input-group-prepend bg-primary border-primary">
-                                                <span class="input-group-text bg-transparent text-white">%</span>
-                                            </div>
-                                            <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
+                    <div class="input-group col-sm-7">
+                        <div class="input-group-prepend bg-primary border-primary">
+                            <span class="input-group-text bg-transparent text-white">$</span>
+                        </div>
+                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append bg-primary border-primary">
+                            <span class="input-group-text bg-transparent text-white">.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="example" class="col-form-label text-gray-900">Rate</label>
+                    <div class="input-group col-sm-5">
+                        <div class="input-group-prepend bg-primary border-primary">
+                            <span class="input-group-text bg-transparent text-white">%</span>
+                        </div>
+                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
+                    </div>
+                </div>
+            </div>
+        </div>*@
                         @*<form class="form-sample">
-                            <p class="card-description"> Personal info </p>*@
+        <p class="card-description"> Personal info </p>*@
                         @*<div class="row">*@
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Balance $</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.MortgageBalance)
+                                    <input type="text" name="MortgageBalance" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -225,7 +228,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Rate</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.Rate)
+                                    <input type="text" name="Rate" class="form-control" placeholder="for example, 4.12">
                                 </div>
                             </div>
                         </div>
@@ -235,7 +238,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Term (years)</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.Term)
+                                    <input type="text" name="Term" class="form-control" placeholder="e.g. 30">
                                 </div>
                             </div>
                         </div>
@@ -243,7 +246,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Start Date</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.OriginationDate)
+                                    <input type="date" name="OriginationDate" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -253,7 +256,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Taxes (monthly)</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.MonthlyPropertyTax)
+                                    <input type="text" name="MonthlyPropertyTax" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -261,7 +264,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Ins (monthly)</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.MonthlyHOIPremium)
+                                    <input type="text" name="MonthlyHOIPremium" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -369,6 +372,8 @@
 <script src="~/theme/vendor/chart.js/Chart.min.js"></script>
 <script src="~/theme/js/demo/chartjs-datalabels.js"></script>
 <script type="text/javascript">
+    alert("Welcome to your dashboard!" + "\n" + "This is where you can fill in your current and new mortgage information so that you can make easy comparisons by visualizing the data." + "\n"
+        + "Go ahead and try!")
     var ctxP = document.getElementById("labelChart").getContext('2d');
     var myPieChart = new Chart(ctxP, {
         plugins: [ChartDataLabels],
@@ -376,7 +381,7 @@
         data: {
             labels: ["Principal", "Interest", "Taxes", "Insurance"],
             datasets: [{
-                data: [210, 130, 120, 160],
+                data: [210000, 130000, 1200, 1600],
                 backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                 hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
             }]

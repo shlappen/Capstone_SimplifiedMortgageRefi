@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,9 @@ namespace SimplifiedMortgageRefi.Models
         public int Id { get; set; }
 
         public bool IsEligible { get; set; }
+
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
 
         public DateTime ApplicationStartDate { get; set; }
 

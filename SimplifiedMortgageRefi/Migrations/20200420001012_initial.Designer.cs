@@ -10,8 +10,8 @@ using SimplifiedMortgageRefi.Data;
 namespace SimplifiedMortgageRefi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200417012441_AddedUSStates")]
-    partial class AddedUSStates
+    [Migration("20200420001012_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "888d7eb1-edfe-453d-ac90-ef411df295eb",
-                            ConcurrencyStamp = "12ee3aee-5d34-45e5-a456-0d1421669c66",
+                            Id = "8383162f-20b8-4fe4-96d9-f14cd2f1b965",
+                            ConcurrencyStamp = "4d2dbd75-0edd-4035-9856-9d63df86820a",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "cb36fa99-fe2e-4256-85f8-d680ffa30597",
-                            ConcurrencyStamp = "cb260c55-9c11-4edf-bb55-35b192f1b8a3",
+                            Id = "085c30f2-b4a3-4a97-8821-16fc8b70cb66",
+                            ConcurrencyStamp = "661b1828-b7f3-4d4e-b4a0-86c19fc63f65",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -235,7 +235,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Address", b =>
                 {
-                    b.Property<int>("AddressId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -255,7 +255,7 @@ namespace SimplifiedMortgageRefi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AddressId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StateId");
 
@@ -275,7 +275,12 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.Property<bool>("IsEligible")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("Applications");
                 });
@@ -490,6 +495,9 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.Property<bool>("IsCashOut")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsCurrentMortgage")
+                        .HasColumnType("bit");
+
                     b.Property<double>("LoanAmount")
                         .HasColumnType("float");
 
@@ -530,6 +538,33 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OccupancyTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Primary Residence"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Investment Property"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Second Home"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Family Member Lives Here"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Property", b =>
@@ -593,6 +628,33 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PropertyTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Single Family"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Condominium"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Townhouse"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Multi-Family"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Purpose", b =>
@@ -613,17 +675,17 @@ namespace SimplifiedMortgageRefi.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "lower my rate and payment."
+                            Name = "lower my rate and payment"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "tap into my equity."
+                            Name = "tap into my equity"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "shorten my term so I can pay less interest in the long run."
+                            Name = "shorten my term"
                         },
                         new
                         {
@@ -1015,6 +1077,15 @@ namespace SimplifiedMortgageRefi.Migrations
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Application", b =>
+                {
+                    b.HasOne("SimplifiedMortgageRefi.Models.Property", "Property")
+                        .WithMany("Applications")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

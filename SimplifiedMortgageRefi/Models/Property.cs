@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +17,8 @@ namespace SimplifiedMortgageRefi.Models
         public double MortgageBalance { get; set; }
         public double MonthlyPayment { get; set; }
 
+        public DateTime OriginationDate { get; set; }
+
         public double Rate { get; set; }
 
         public int Term { get; set; }
@@ -25,7 +28,7 @@ namespace SimplifiedMortgageRefi.Models
         public double  MonthlyHOIPremium { get; set; }
 
         public ICollection<Customers_Properties> Customers { get; set; }
-
+        public ICollection<Application> Applications { get; set; }
 
         [ForeignKey("PropertyType")]
         [Display(Name = "Property Type")]

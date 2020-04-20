@@ -10,8 +10,8 @@ using SimplifiedMortgageRefi.Data;
 namespace SimplifiedMortgageRefi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200417161702_UpdatedPropertyTypeAndOccupancyType")]
-    partial class UpdatedPropertyTypeAndOccupancyType
+    [Migration("20200420013341_AddedOriginationDateToProperty")]
+    partial class AddedOriginationDateToProperty
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c9e0cea0-4ea4-48ca-8788-9dc2744f35ba",
-                            ConcurrencyStamp = "f7478e90-55da-47dc-81fe-8bfefca97728",
+                            Id = "88ca0c24-f3c8-4b6b-b00e-f72ee1dabd3f",
+                            ConcurrencyStamp = "83f0e3a5-0fec-4687-89a8-82249fa59369",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "ff57c975-ab40-46bf-95ac-8f6e92e8f1c3",
-                            ConcurrencyStamp = "c30b276d-9b78-462e-b454-d482ef3be223",
+                            Id = "42f5fc64-1150-4bf6-8b5e-9b9219c13ff4",
+                            ConcurrencyStamp = "ff982105-5e7b-45f8-a96b-06093cfaa310",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -235,7 +235,7 @@ namespace SimplifiedMortgageRefi.Migrations
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Address", b =>
                 {
-                    b.Property<int>("AddressId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -255,7 +255,7 @@ namespace SimplifiedMortgageRefi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AddressId");
+                    b.HasKey("Id");
 
                     b.HasIndex("StateId");
 
@@ -275,7 +275,12 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.Property<bool>("IsEligible")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("Applications");
                 });
@@ -490,6 +495,9 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.Property<bool>("IsCashOut")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsCurrentMortgage")
+                        .HasColumnType("bit");
+
                     b.Property<double>("LoanAmount")
                         .HasColumnType("float");
 
@@ -586,6 +594,9 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.Property<int>("OccupancyTypeId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("OriginationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
@@ -1069,6 +1080,15 @@ namespace SimplifiedMortgageRefi.Migrations
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Application", b =>
+                {
+                    b.HasOne("SimplifiedMortgageRefi.Models.Property", "Property")
+                        .WithMany("Applications")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
