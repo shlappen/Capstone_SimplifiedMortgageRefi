@@ -77,7 +77,7 @@ namespace SimplifiedMortgageRefi.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
             [Bind("FirstName,LastName")] Customer customer,
-            [Bind("PropertyTypeId, OccupancyTypeId, OriginationDate")] Property property,
+            [Bind("PropertyTypeId, OccupancyTypeId")] Property property,
             [Bind("Street, City, StateId, ZipCode")] Address address,
             [Bind("PurposeId")] LoanProfile loanProfile)
         {
@@ -162,7 +162,7 @@ namespace SimplifiedMortgageRefi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditCurrentMortgage(
-        [Bind("MortgageBalance, Rate, Term, MonthlyPropertyTax, MonthlyHOIPremium, Id")] Property property)
+        [Bind("MortgageBalance, OriginalMortgageBalance, Rate, Term, MonthlyPropertyTax, MonthlyHOIPremium, Id, OriginationDate")] Property property)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
@@ -171,11 +171,12 @@ namespace SimplifiedMortgageRefi.Controllers
                 //Get customer
                 var propertyInDb = _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefault();
                 propertyInDb.MortgageBalance = property.MortgageBalance;
+                propertyInDb.OriginalMortgageBalance = property.OriginalMortgageBalance;
                 propertyInDb.Rate = property.Rate;
                 propertyInDb.Term = property.Term;
                 propertyInDb.MonthlyPropertyTax = property.MonthlyPropertyTax;
                 propertyInDb.MonthlyHOIPremium = property.MonthlyHOIPremium;
-
+                propertyInDb.OriginationDate = property.OriginationDate;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
