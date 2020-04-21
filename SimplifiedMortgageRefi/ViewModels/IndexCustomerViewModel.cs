@@ -10,5 +10,6 @@ namespace SimplifiedMortgageRefi.ViewModels
     {
         public Customer Customer { get; set; }
         public Property Property { get; set; }
+        public LoanProfile LoanProfile { get; set; }
     }
 }

@@ -26,6 +26,8 @@ namespace SimplifiedMortgageRefi.Models
 
         public bool IsCashOut { get; set; }
 
+        public double ClosingCost { get; set; }
+
         public bool IsCurrentMortgage { get; set; }
 
         public ICollection<Income> Incomes { get; set; }
