@@ -87,7 +87,7 @@ namespace SimplifiedMortgageRefi.Controllers
             if (ModelState.IsValid)
             {
 
-                //Get customer
+                //Get customer role
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
 
@@ -139,7 +139,37 @@ namespace SimplifiedMortgageRefi.Controllers
             return View(customer);
         }
 
+        //public IActionResult CreateLoanProfile(int? id)
+        //{
+        //    var applicationInDb = _context.Applications.Where(a => a.Id == id).FirstOrDefault();
+        //    //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    //var customerInDb = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefaultAsync();
 
+        //    return View();
+        //}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLoanProfile([Bind("Id")] Application application,
+    [Bind("Term,Rate,LoanAmount,ClosingCost")] LoanProfile loanProfile)
+        {
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                //var applicationInDb = _context.Applications.Where(a => a.Id == application.Id).FirstOrDefault();
+                var purposeId = _context.LoanProfiles.Where(l => l.ApplicationId == application.Id).Select(p => p.PurposeId).FirstOrDefault();
+                loanProfile.Originator = "Customer";
+                loanProfile.ApplicationId = application.Id;
+                loanProfile.PurposeId = purposeId;
+
+
+                _context.Add(loanProfile);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
         public async Task <IActionResult> EditCurrentMortgage()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -185,6 +215,7 @@ namespace SimplifiedMortgageRefi.Controllers
             }
             return View(customer);
         }
+
 
         // GET: Customers/Edit/5
         public async Task<IActionResult> EditLoanProfile(int? id)
