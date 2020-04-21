@@ -27,13 +27,16 @@ namespace SimplifiedMortgageRefi.Controllers
             IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
             
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = await _context.Customers.Where(c => c.IdentityUserId == userId)
-                .Include(c => c.Properties).ThenInclude(c => c.Property).
-                FirstOrDefaultAsync();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+
             indexCustomerViewModel.Customer = customer;
-            var propertyInDb = _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefault();
+            var application = await _context.Applications_Customers.Where(c => c.CustomerId == customer.Id).Select(d => d.Application).FirstOrDefaultAsync();
+            var loanProfiles = await _context.LoanProfiles.Where(c => c.ApplicationId == application.Id).ToListAsync();
+            var propertyInDb = await _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefaultAsync();
 
             indexCustomerViewModel.Property = propertyInDb;
+            indexCustomerViewModel.Application = application;
+            indexCustomerViewModel.LoanProfiles = loanProfiles;
             return View(indexCustomerViewModel);
         }
 
@@ -183,7 +186,67 @@ namespace SimplifiedMortgageRefi.Controllers
             return View(customer);
         }
 
+        // GET: Customers/Edit/5
+        public async Task<IActionResult> EditLoanProfile(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var loanProfile = await _context.LoanProfiles.FindAsync(id);
+            if (loanProfile == null)
+            {
+                return NotFound();
+            }
+
+            return View(loanProfile);
+        }
+
+        // POST: Customers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLoanProfile(int id, [Bind("Id,Term,ClosingCost,LoanAmount,Rate")] LoanProfile loanProfile)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = await _context.Customers.Where(c => c.IdentityUserId == userId)
+                .FirstOrDefaultAsync();
+
+            var loanProfileInDb = _context.LoanProfiles.Where(c => c.Id == loanProfile.Id).SingleOrDefault();
+            if (id != loanProfile.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    loanProfileInDb.Rate = loanProfile.Rate;
+                    loanProfileInDb.Term = loanProfile.Term;
+                    loanProfileInDb.LoanAmount = loanProfile.LoanAmount;
+                    loanProfileInDb.ClosingCost = loanProfile.ClosingCost;
+                    _context.Update(customer);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CustomerExists(customer.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View(customer);
+        }
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

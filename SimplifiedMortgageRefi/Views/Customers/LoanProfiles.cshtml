@@ -1,0 +1,108 @@
+﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel
+
+@if (Model.LoanProfiles.FirstOrDefault().LoanAmount == 0)
+{
+    <div class="col-xl-4 col-lg-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Refinance Option 1 Details</h6>
+            </div>
+            <div class="p-3">
+                <form class="user" asp-action="EditLoanProfile">
+                    <input type="hidden" asp-for="LoanProfiles.FirstOrDefault().Id" />
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">New Loan Amount</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="LoanAmount" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Rate</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="Rate" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Term (years)</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="Term" class="form-control" placeholder="e.g. 30">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Closing Costs</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="ClosingCost" class="form-control" placeholder="for example, 4.12">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <input type="submit" value="Save" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-xl-4 col-lg-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Refinance Option 1 Details</h6>
+            </div>
+            <div class="p-3">
+                <form class="user" asp-action="EditLoanProfile">
+                    <input type="hidden" asp-for="LoanProfiles.FirstOrDefault().Id" />
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">New Loan Amount</label>
+                            <div class="col-sm-7">
+                                @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().LoanAmount)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Rate</label>
+                            <div class="col-sm-7">
+                                @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().Rate)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Term (years)</label>
+                            <div class="col-sm-7">
+                                @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().Term)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-5 col-form-label">Closing Costs</label>
+                            <div class="col-sm-7">
+                                @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().ClosingCost)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row p-3">
+                        <input type="submit" value="Save" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+}
+
+

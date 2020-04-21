@@ -131,7 +131,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Total Mortgage Costs</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Total Current Mortgage Costs: </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
                             <i class="fas fa-angle-double-up text-gray-400"></i>
@@ -354,7 +354,7 @@
         data: {
             labels: ["Principal", "Interest", "Taxes", "Insurance"],
             datasets: [{
-                data: [Your principal amount, Interest, Taxes, Insurance],
+                data: [100, 100, 100, 100],
                 backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                 hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
             }]
@@ -376,7 +376,7 @@
                         dataArr.map(data => {
                             sum += data;
                         });
-                        let percentage = "$" + value;
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
                         return percentage;
                     },
                     color: 'white',
