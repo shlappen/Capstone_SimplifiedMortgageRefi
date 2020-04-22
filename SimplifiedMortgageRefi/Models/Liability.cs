@@ -16,6 +16,10 @@ namespace SimplifiedMortgageRefi.Models
         public double Payment { get; set; }
 
         public bool IsIncludedOnApp { get; set; }
+        public Liability()
+        {
+            IsIncludedOnApp = true;
+        }
 
         public bool IsConsolidated { get; set; }
 

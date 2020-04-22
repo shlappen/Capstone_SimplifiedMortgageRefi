@@ -65,12 +65,40 @@ else
                 <input type="hidden" asp-for="LoanProfiles.Last().Id" />
                 <div class="col-md-12">
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">New Loan Amount</label>
+                        <label class="col-sm-5 col-form-label">Total Loan Cost</label>
+                        <div class="col-sm-7">
+                            <span class="output" id="totalpayment2"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Principal Balance</label>
                         <div class="col-sm-7">
                             @Html.DisplayFor(Model => Model.LoanProfiles.Last().LoanAmount)
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Total Interest</label>
+                        <div class="col-sm-7">
+                            <span class="output" id="totalinterest2"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
+                        <div class="col-sm-7">
+                            <span class="output" id="monthlypayment2"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Rate</label>
@@ -89,33 +117,9 @@ else
                 </div>
                 <div class="col-md-12">
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Closing Costs</label>
+                        <label class="col-sm-5 col-form-label">Closing Costs Not Financed (Paid At Close)</label>
                         <div class="col-sm-7">
                             @Html.DisplayFor(Model => Model.LoanProfiles.Last().ClosingCost)
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Total Loan Cost</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="totalpayment2"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Total Interest</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="totalinterest2"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="monthlypayment2"></span>
                         </div>
                     </div>
                 </div>

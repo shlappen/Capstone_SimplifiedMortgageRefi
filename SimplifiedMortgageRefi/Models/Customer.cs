@@ -29,6 +29,6 @@ namespace SimplifiedMortgageRefi.Models
 
         public ICollection<Applications_Customers> Applications { get; set; }
         public ICollection<Customers_Properties> Properties {get; set; }
-
+        public double MonthlyIncome { get; set; }
     }
 }

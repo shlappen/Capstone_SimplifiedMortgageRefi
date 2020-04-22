@@ -22,7 +22,6 @@ namespace SimplifiedMortgageRefi.Data
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Customers_Properties> Customers_Properties { get; set; }
-        public DbSet<Income> Incomes { get; set; }
         public DbSet<Lender> Lenders { get; set; }
         public DbSet<Liability> Liabilities { get; set; }
         public DbSet<LiabilityType> LiabilityTypes { get; set; }
@@ -459,10 +458,6 @@ namespace SimplifiedMortgageRefi.Data
             builder.Entity<Lender>()
                 .HasMany(a => a.Contacts)
                 .WithOne(b => b.Lender);
-
-            builder.Entity<LoanProfile>()
-                .HasMany(a => a.Incomes)
-                .WithOne(b => b.LoanProfile);
 
             builder.Entity<LoanProfile>()
                 .HasMany(a => a.Liabilities)

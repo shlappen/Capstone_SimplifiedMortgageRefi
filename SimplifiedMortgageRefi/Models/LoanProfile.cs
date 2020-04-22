@@ -21,6 +21,7 @@ namespace SimplifiedMortgageRefi.Models
 
         public int CreditScore { get; set; }
 
+
         public int ApplicationId { get; set; }
         public Application Application { get; set; }
 
@@ -30,7 +31,6 @@ namespace SimplifiedMortgageRefi.Models
 
         public bool IsCurrentMortgage { get; set; }
 
-        public ICollection<Income> Incomes { get; set; }
         public ICollection<Liability> Liabilities { get; set; }
 
         public double DebtToIncome { get; set; }

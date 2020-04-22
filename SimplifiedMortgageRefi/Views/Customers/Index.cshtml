@@ -18,86 +18,7 @@
         @*<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>*@
     </div>
 
-    <!-- Content Row -->
-    <div class="row">
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <partial name="MyRatiosPartial" />
 
     <!-- Content Row -->
 
@@ -107,19 +28,19 @@
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Long-Term Interest Savings Comparison</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">My Ratios</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-bar">
+                    @*<div class="chart-bar">
                         <canvas id="myBarChart"></canvas>
 
 
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-6 col-lg-6">
+        <div class="col-xl-5 col-lg-5">
             <!-- Nice Bar Chart -->
             <div class="card shadow mb-4">
 
@@ -128,7 +49,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
-                        <canvas id="myChart" class="col-md-10"></canvas>
+                        <canvas id="myChart" class="col-md-12"></canvas>
 
                     </div>
                 </div>
@@ -288,7 +209,7 @@
         </div> End Mortgage Calculator Widget*@
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Total Loan Cost</label>
+                                <label class="col-sm-5 col-form-label">Total Left</label>
                                 <div class="col-sm-7">
                                     <span class="output" id="totalremaining"></span>
                                 </div>
@@ -296,7 +217,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Principal Balance</label>
+                                <label class="col-sm-5 col-form-label">Principal Left</label>
                                 <div class="col-sm-7">
                                     <span class="output" id="currentbalance"></span>
                                 </div>
@@ -304,7 +225,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Total Interest</label>
+                                <label class="col-sm-5 col-form-label">Interest Left</label>
                                 <div class="col-sm-7">
                                     <span class="output" id="remaininginterest"></span>
                                 </div>
@@ -416,80 +337,38 @@
 </div>
 
 
-<!-- /.container-fluid -->
-@*</body>*@
-
-
-
-@*<p>
-        <a asp-action="AddProperty">Add New Property</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.LastName)
-                </td>
-
-                <td>
-                    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-                </td>
-            </tr>
-
-        </tbody>
-
-    </table>*@
 @{
-    int monthspaid = (12 * Math.Abs((Model.Property.OriginationDate.Year - DateTime.Now.Year) + Model.Property.OriginationDate.Month - DateTime.Now.Month) - 1);
-    int remaining = (Model.Property.Term * 12) - monthspaid;
-
+    int monthsPaid = 12 * Math.Abs((DateTime.Now.Year - Model.Property.OriginationDate.Year)) + Math.Abs(DateTime.Now.Month - Model.Property.OriginationDate.Month);
+    int monthsLeft = (Model.Property.Term * 12) - monthsPaid;
+    int totalPayments = Model.Property.Term * 12;
 }
 <script src="~/theme/lib/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="~/theme/vendor/chart.js/Chart.min.js"></script>
 <script src="~/theme/js/demo/chartjs-datalabels.js"></script>
 <script src="~/js/site.js"></script>
 <script async defer type="text/javascript">
+
+    console.log(@monthsPaid);
+    console.log(@monthsLeft);
+
+    //<-- Current Mortgage Calc -->//
+    //calculate monthly payment based on original balance, term, and rate:
     var principal = @Model.Property.OriginalMortgageBalance;
-    var interest = @Model.Property.Rate / 100 / 12;
-    var payments = @Model.Property.Term * 12;
-    var totaltaxes = @Model.Property.MonthlyPropertyTax * payments;
-    var totalinsurance = @Model.Property.MonthlyHOIPremium * payments;
+    var monthlyInterestRate = @Model.Property.Rate / 100 / 12;
+    console.log(monthlyInterestRate);
+    var x = Math.pow(1 + monthlyInterestRate, @totalPayments); // Math.pow() computes powers
+    //get Monthly Payment:
+    var monthlyPayment = (principal * x * monthlyInterestRate) / (x - 1);
 
-        // Now compute the monthly payment figure.
-        var x = Math.pow(1 + interest, payments); // Math.pow() computes powers
-    console.log(x)
-    console.log(x)
-        var monthly = (principal * x * interest) / (x - 1);
-        if (isFinite(monthly)) {
-            //totalpayment.innerHTML = "$" + addCommas((monthly * payments).toFixed(2));
-            //totalinterest.innerHTML = "$" + addCommas(((monthly * payments) - principal).toFixed(2));
-            monthlypayment.innerHTML = "$" + addCommas(monthly.toFixed(2));
-        };
+    console.log(monthlyPayment);
 
-    console.log(principal);
-    console.log(interest);
+    if (isFinite(monthlyPayment)) {
+            monthlypayment.innerHTML = "$" + addCommas(monthlyPayment.toFixed(2));
+            @*totalpayment.innerHTML = "$" + addCommas((monthly * @totalPayments).toFixed(2));
+            totalinterest.innerHTML = "$" + addCommas(((monthly * @totalPayments) - principal).toFixed(2));*@
+    };
 
-
-
-
+    //function to calc current balance based on payment, interest rate, number of payments remaining:
     function calculate_balance(PMT, IR, NP) {
         var PV = PMT * (1 - Math.pow(1 + IR, -NP)) / IR
         return round_decimals(PV, 2)
@@ -502,39 +381,24 @@
         return (result3)
     }
 
-    var principal = @Model.Property.OriginalMortgageBalance;
-    var payments = @Model.Property.Term * 12;
+    var loan_balance = calculate_balance(monthlyPayment, monthlyInterestRate, @monthsLeft);
 
-    //var monthly_payment = 200
-    @*var interest_rate = @Model.Property.Rate / 100;*@
-    console.log("check");
-    console.log(monthly);
-    console.log(interest);
-    console.log(payments);
-    console.log(principal)
-
-    var term_remaining = @remaining;
-    console.log(term_remaining)
-    var interest_rate = (@Model.Property.Rate) / 100;
-    var loan_balance = calculate_balance(monthly, interest_rate / 12,
-        term_remaining)
-    currentbalance.innerHTML = "$" + addCommas(loan_balance);
 
     //alert("Monthly payment:\t$" + monthly + "\n" +
     //    "Annual interest rate:\t" + interest_rate * 100 + "%\n" +
     //    "Term remaining:\t" + term_remaining + " months\n\n" +
     //    "Remaining balance:\t$" + loan_balance)
-    console.log("check remaining interest and principal");
-    var interestTotal = (monthly * payments) - principal;
-    var remaining_interest = (interestTotal - ((@monthspaid * monthly) - (@Model.Property.OriginalMortgageBalance - loan_balance)));
-    console.log(remaining_interest);
-    console.log(loan_balance);
 
-    var total_remaining = (remaining_interest + loan_balance);
-    //var remaining_interest = remaining_interest.;
-    totalremaining.innerHTML = "$" + addCommas(total_remaining.toFixed(2));
+    var interestTotal = (monthlyPayment * @totalPayments) - principal;
+    var remaining_interest = (interestTotal - ((@monthsPaid * monthlyPayment) - (principal - loan_balance)));
+    var totalLeft = (remaining_interest + loan_balance);
+
+    //display in HTML:
+    currentbalance.innerHTML = "$" + addCommas(loan_balance);
+    totalremaining.innerHTML = "$" + addCommas(totalLeft.toFixed(2));
     remaininginterest.innerHTML = "$" + addCommas(remaining_interest.toFixed(2));
 
+    //create 1st pie Chart
     var ctxP = document.getElementById("labelChart").getContext('2d');
     var myPieChart = new Chart(ctxP, {
         plugins: [ChartDataLabels],
@@ -580,25 +444,22 @@
         }
     });
 
-    var currentmonthly = monthly;
+
 
     if (@Model.LoanProfiles.First().LoanAmount !== 0) {
 
         var principal = @Model.LoanProfiles.First().LoanAmount;
         var interest = @Model.LoanProfiles.First().Rate / 100 / 12;
         var payments = @Model.LoanProfiles.First().Term * 12;
-        var interesttotal;
-        @*var totaltaxes = @Model.Property.MonthlyPropertyTax * payments;
-        var totalinsurance = @Model.Property.MonthlyHOIPremium * payments;*@
 
         // Now compute the monthly payment figure.
         var x = Math.pow(1 + interest, payments); // Math.pow() computes powers
 
         var monthly = (principal * x * interest) / (x - 1);
+        var totalInterest = (monthly * payments) - principal;
         if (isFinite(monthly)) {
             totalpayment1.innerHTML = "$" + addCommas(((monthly * payments) + @Model.LoanProfiles.First().ClosingCost).toFixed(2));
             totalinterest1.innerHTML = "$" + addCommas(((monthly * payments) - principal).toFixed(2));
-            interesttotal = parseFloat(((monthly * payments) - principal).toFixed(2));
             monthlypayment1.innerHTML = "$" + addCommas(monthly.toFixed(2));
         };
 
@@ -612,7 +473,7 @@
             data: {
                 labels: ["Principal", "Interest"],
                 datasets: [{
-                    data: [principal, interesttotal],
+                    data: [principal, totalInterest.toFixed(2)],
                     backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                     hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
                 }]
@@ -665,10 +526,10 @@
             console.log(x);
         monthly2 = (principal * x * interest) / (x - 1);
         if (isFinite(monthly)) {
-            totalpayment2.innerHTML = "$" + addCommas(((monthly * payments) + @Model.LoanProfiles.Last().ClosingCost).toFixed(2));
-            totalinterest2.innerHTML = "$" + addCommas(((monthly * payments) - principal).toFixed(2));
-            interesttotal = parseFloat(((monthly * payments) - principal).toFixed(2));
-            monthlypayment2.innerHTML = "$" + addCommas(monthly.toFixed(2));
+            totalpayment2.innerHTML = "$" + addCommas(((monthly2 * payments) + @Model.LoanProfiles.Last().ClosingCost).toFixed(2));
+            totalinterest2.innerHTML = "$" + addCommas(((monthly2 * payments) - principal).toFixed(2));
+            interesttotal = parseFloat(((monthly2 * payments) - principal).toFixed(2));
+            monthlypayment2.innerHTML = "$" + addCommas(monthly2.toFixed(2));
         };
 
         console.log(principal);
@@ -720,17 +581,20 @@
         });
         }
 
+        var option2 = "";
+        if (@Model.LoanProfiles.First().Id != @Model.LoanProfiles.Last().Id) {
+            option2 = "Option 2: " + @Model.LoanProfiles.Last().Term + " year at " + @Model.LoanProfiles.Last().Rate + "%";
+        };
 
-        console.log(currentmonthly);
         console.log(monthly);
-
-        var opt1Savings = currentmonthly - monthly;
-        var opt2Savings = currentmonthly - monthly2;
+        console.log(monthly2);
+        var opt1Savings = monthlyPayment - monthly;
+        var opt2Savings = monthlyPayment - monthly2;
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ["Option 1", "Option 2"],
+                labels: ["Option 1: " + @Model.LoanProfiles.FirstOrDefault().Term + " year at " + @Model.LoanProfiles.FirstOrDefault().Rate + "%", option2],
                 datasets: [{
                     label: 'Monthly Savings',
                     data: [opt1Savings.toFixed(2), opt2Savings.toFixed(2)],
@@ -739,7 +603,7 @@
                         //'rgba(54, 162, 235, 0.2)',
                         //'rgba(255, 159, 64, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
+                        'rgba(75, 250, 150, 0.2)'
                         //'rgba(153, 102, 255, 0.2)',
                     ],
                     borderColor: [
@@ -748,7 +612,7 @@
                         //'rgba(255, 159, 64, 1)',
 
                         'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
+                        'rgba(75, 250, 150, 1)'
                         //'rgba(153, 102, 255, 1)',
                     ],
                     borderWidth: 1
