@@ -195,7 +195,7 @@ namespace SimplifiedMortgageRefi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditCurrentMortgage(
-        [Bind("MortgageBalance, OriginalMortgageBalance, Rate, Term, MonthlyPropertyTax, MonthlyHOIPremium, Id, OriginationDate")] Property property)
+        [Bind("OriginalMortgageBalance, Rate, Term, MonthlyPropertyTax, MonthlyHOIPremium, Id, OriginationDate")] Property property)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();

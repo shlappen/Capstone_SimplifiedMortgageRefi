@@ -6,7 +6,7 @@
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Refinance Option 1 Details</h6>
+                <h6 class="m-0 font-weight-bold text-warning">Refinance Option 1 Details</h6>
             </div>
             <div class="p-3">
                 <form class="user" asp-action="EditLoanProfile">
@@ -39,7 +39,7 @@
                         <div class="form-group row">
                             <label class="col-sm-5 col-form-label">Closing Costs</label>
                             <div class="col-sm-7">
-                                <input type="text" name="ClosingCost" class="form-control" placeholder="for example, 4.12">
+                                <input type="text" name="ClosingCost" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -59,18 +59,46 @@ else
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Refinance Option 1 Details</h6>
+                <h6 class="m-0 font-weight-bold text-warning">Refinance Option 1 Details</h6>
             </div>
             <div class="p-3">
                 <input type="hidden" asp-for="LoanProfiles.FirstOrDefault().Id" />
                 <div class="col-md-12">
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">New Loan Amount</label>
+                        <label class="col-sm-5 col-form-label">Total Loan Cost</label>
+                        <div class="col-sm-7">
+                            <span class="output" id="totalpayment1"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Principal Balance</label>
                         <div class="col-sm-7">
                             @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().LoanAmount)
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Total Interest</label>
+                        <div class="col-sm-7">
+                            <span class="output" id="totalinterest1"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
+                        <div class="col-sm-7">
+                            <span class="output" id="monthlypayment1"></span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Rate</label>
@@ -89,33 +117,9 @@ else
                 </div>
                 <div class="col-md-12">
                     <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Closing Costs</label>
+                        <label class="col-sm-5 col-form-label">Closing Costs Not Financed (Paid At Close)</label>
                         <div class="col-sm-7">
                             @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().ClosingCost)
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Total Loan Cost</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="totalpayment1"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Total Interest</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="totalinterest1"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Principal & Interest Payment</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="monthlypayment1"></span>
                         </div>
                     </div>
                 </div>

@@ -102,23 +102,41 @@
     <!-- Content Row -->
 
     <div class="row">
-        <div class="col-xl-4 col-lg-5">
+        <div class="col-xl-6 col-lg-6">
             <!-- Bar Chart -->
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Savings</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Long-Term Interest Savings Comparison</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
                         <canvas id="myBarChart"></canvas>
+
 
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="col-xl-6 col-lg-6">
+            <!-- Nice Bar Chart -->
+            <div class="card shadow mb-4">
+
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Monthly Savings Comparison</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <canvas id="myChart" class="col-md-10"></canvas>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
 
 
@@ -131,26 +149,20 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Current Mortgage Life-of-Loan Costs: </h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Current Mortgage Remaining Costs: </h6>
                     @*<div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>*@
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>*@
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
-                            <i class="fas fa-angle-double-up text-gray-400"></i>
+                        <a class="dropdown-toggle" href="#piechart" role="button" data-toggle="collapse" aria-expanded="true">
+                            <i class="fas fa-angle-double-down text-primary"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+
                     </div>
                 </div>
                 <!-- Card Body -->
-                <div class="collapsing-in" id="piechart">
+                <div class="collapse" id="piechart">
                     <div class="card-body">
                         <div class="chart-pie pt-4 pb-2">
                             <canvas id="labelChart"></canvas>
@@ -163,14 +175,14 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Refi Option 1 Costs: </h6>
+                    <h6 class="m-0 font-weight-bold text-warning">Refi Option 1 Costs: </h6>
                     @*<div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>*@
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>*@
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
-                            <i class="fas fa-angle-double-up text-gray-400"></i>
+                        <a class="dropdown-toggle" href="#piechart" role="button" data-toggle="collapse" aria-expanded="true">
+                            <i class="fas fa-angle-double-down text-warning show" id="arrow"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Dropdown Header:</div>
@@ -182,7 +194,7 @@
                     </div>
                 </div>
                 <!-- Card Body -->
-                <div class="collapsing-in" id="piechart">
+                <div class="collapse" id="piechart">
                     <div class="card-body">
                         <div class="chart-pie pt-4 pb-2">
                             <canvas id="labelChart1"></canvas>
@@ -195,26 +207,27 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Refi Option 2 Costs: </h6>
+                    <h6 class="m-0 font-weight-bold text-success">Refi Option 2 Costs: </h6>
                     @*<div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>*@
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>*@
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
-                            <i class="fas fa-angle-double-up text-gray-400"></i>
+                            @*<i class="fas fa-angle-double-up text-success"></i>*@
+                            <i class="fas fa-angle-double-down text-success"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        @*<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>*@
                     </div>
                 </div>
                 <!-- Card Body -->
-                <div class="collapsing-in" id="piechart">
+                <div class="collapse" id="piechart">
                     <div class="card-body">
                         <div class="chart-pie pt-4 pb-2">
                             <canvas id="labelChart2"></canvas>
@@ -238,58 +251,76 @@
 
                     <form class="user">
                         @*<div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
-                                    <div class="input-group col-sm-7">
-                                        <div class="input-group-prepend bg-primary border-primary">
-                                            <span class="input-group-text bg-transparent text-white">$</span>
-                                        </div>
-                                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
-                                        <div class="input-group-append bg-primary border-primary">
-                                            <span class="input-group-text bg-transparent text-white">.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="example" class="col-form-label text-gray-900">Rate</label>
-                                    <div class="input-group col-sm-5">
-                                        <div class="input-group-prepend bg-primary border-primary">
-                                            <span class="input-group-text bg-transparent text-white">%</span>
-                                        </div>
-                                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
+            <div class="col-md-4">
+                <div class="form-group row">
+                    <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
+                    <div class="input-group col-sm-7">
+                        <div class="input-group-prepend bg-primary border-primary">
+                            <span class="input-group-text bg-transparent text-white">$</span>
+                        </div>
+                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append bg-primary border-primary">
+                            <span class="input-group-text bg-transparent text-white">.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group row">
+                    <label for="example" class="col-form-label text-gray-900">Rate</label>
+                    <div class="input-group col-sm-5">
+                        <div class="input-group-prepend bg-primary border-primary">
+                            <span class="input-group-text bg-transparent text-white">%</span>
+                        </div>
+                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
+                    </div>
+                </div>
+            </div>
+        </div>*@
                         @*<form class="form-sample">
-                        <p class="card-description"> Personal info </p>*@
+        <p class="card-description"> Personal info </p>*@
                         @*<div class="row">*@
 
                         <!-- Mortgage Calculator Widget -->
                         @*<div class="mcw-wrap_250" id="maoWrap">
-                            <div id="mcwWidget"></div>
-                            <script>var maoCalc = {}; maoCalc.settings = { "theme": "theme1", "view": "vertical1", "responsive": "mcw-wrap_250", "font": "Open Sans, Helvetica, Arial, sans-serif", "border": false, "boxShadow": true, "backgroundColor": "#fff", "fieldColor": "#fff", "textColor": "#334356", "borderColor": "#dde2e5", "currency": "$", "currencySide": "left", "delimiters": ",.", "popup": false, "popupView": "barPopup", "style": true, "widgetTotalInterest": true, "widgetTotalPrincipal": true, "monthlyPayment": "Monthly Payment", "totalPrincipalPaid": "Total Principal", "totalInterestPaid": "Total Interest", "totalPayments": "Total Payments", "years": "years", "title": { "enabled": true, "color": "#334356", "label": "Mortgage Calculator" }, "homePrice": { "label": "Home Price", "value": "350,000" }, "downPayment": { "enabled": false, "label": "Down Payment", "value": false }, "interestRate": { "label": "Interest Rate", "value": "4.05" }, "mortgageTerm": { "label": "Mortgage Term", "value": "30" }, "pmi": { "enabled": false, "label": "PMI", "value": false }, "taxes": { "enabled": true, "label": "Taxes", "value": "4,375" }, "insurance": { "enabled": true, "label": "Insurance", "value": "1,225" }, "hoa": { "enabled": false, "label": "HOA", "value": false }, "extra": { "enabled": false, "labelAdd": "Add extra payments", "labelRemove": "Remove extra payments", "labelToMonthy": "To monthly", "labelYearly": "Extra yearly" }, "startDate": { "enabled": true, "label": "Start Date" }, "monthsArr": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "button": { "color": "#fff", "bg": "#09f", "label": "Calculate" }, "amortizationSchedule": "Amortization Schedule", "popupLabels": { "monthlyPrincipalInterest": "Monthly Principal & Interest", "monthlyExtraPayment": "Monthly Extra Payment", "monthlyPayment": "MONTHLY PAYMENT", "downPayment": "Down payment", "extraPayments": "Extra payments", "totalPrincipalPaid": "Total principal paid", "totalInterestPaid": "Total interest paid", "totalOfAllPayments": "TOTAL OF ALL PAYMENTS", "amortizationSchedule": "Amortization Schedule", "tablePaymentDate": "Payment date", "tablePayment": "Payment", "tablePrincipal": "Principal", "tableInterest": "Interest", "tableTotalInterest": "Total Interest", "tableBalance": "Balance", "pmi": "PMI", "taxes": "Taxes", "insurance": "Insurance", "shortInsurance": "Ins", "hoa": "HOA", "chartBalance": "Balance", "chartPrincipal": "Principal", "chartInterest": "Interest" }, "useTitleAsLink": false, "titleLinkUrl": "", "useFooterLink": false, "footerLinkAnchor": "", "footerLinkUrl": "" }; (function () { function loadScript(src) { var s, t; s = document.createElement("script"); s.src = src; t = document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(s, t); } function decode(str) { return !window.btoa ? 'not_found' : window.btoa(unescape(encodeURIComponent(str))); } var uri = 'https://mortgage-advice-online.org/widget/' + decode(window.location) + '.js'; loadScript(uri); })();</script>
-                        </div> End Mortgage Calculator Widget*@
-
+            <div id="mcwWidget"></div>
+            <script>var maoCalc = {}; maoCalc.settings = { "theme": "theme1", "view": "vertical1", "responsive": "mcw-wrap_250", "font": "Open Sans, Helvetica, Arial, sans-serif", "border": false, "boxShadow": true, "backgroundColor": "#fff", "fieldColor": "#fff", "textColor": "#334356", "borderColor": "#dde2e5", "currency": "$", "currencySide": "left", "delimiters": ",.", "popup": false, "popupView": "barPopup", "style": true, "widgetTotalInterest": true, "widgetTotalPrincipal": true, "monthlyPayment": "Monthly Payment", "totalPrincipalPaid": "Total Principal", "totalInterestPaid": "Total Interest", "totalPayments": "Total Payments", "years": "years", "title": { "enabled": true, "color": "#334356", "label": "Mortgage Calculator" }, "homePrice": { "label": "Home Price", "value": "350,000" }, "downPayment": { "enabled": false, "label": "Down Payment", "value": false }, "interestRate": { "label": "Interest Rate", "value": "4.05" }, "mortgageTerm": { "label": "Mortgage Term", "value": "30" }, "pmi": { "enabled": false, "label": "PMI", "value": false }, "taxes": { "enabled": true, "label": "Taxes", "value": "4,375" }, "insurance": { "enabled": true, "label": "Insurance", "value": "1,225" }, "hoa": { "enabled": false, "label": "HOA", "value": false }, "extra": { "enabled": false, "labelAdd": "Add extra payments", "labelRemove": "Remove extra payments", "labelToMonthy": "To monthly", "labelYearly": "Extra yearly" }, "startDate": { "enabled": true, "label": "Start Date" }, "monthsArr": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "button": { "color": "#fff", "bg": "#09f", "label": "Calculate" }, "amortizationSchedule": "Amortization Schedule", "popupLabels": { "monthlyPrincipalInterest": "Monthly Principal & Interest", "monthlyExtraPayment": "Monthly Extra Payment", "monthlyPayment": "MONTHLY PAYMENT", "downPayment": "Down payment", "extraPayments": "Extra payments", "totalPrincipalPaid": "Total principal paid", "totalInterestPaid": "Total interest paid", "totalOfAllPayments": "TOTAL OF ALL PAYMENTS", "amortizationSchedule": "Amortization Schedule", "tablePaymentDate": "Payment date", "tablePayment": "Payment", "tablePrincipal": "Principal", "tableInterest": "Interest", "tableTotalInterest": "Total Interest", "tableBalance": "Balance", "pmi": "PMI", "taxes": "Taxes", "insurance": "Insurance", "shortInsurance": "Ins", "hoa": "HOA", "chartBalance": "Balance", "chartPrincipal": "Principal", "chartInterest": "Interest" }, "useTitleAsLink": false, "titleLinkUrl": "", "useFooterLink": false, "footerLinkAnchor": "", "footerLinkUrl": "" }; (function () { function loadScript(src) { var s, t; s = document.createElement("script"); s.src = src; t = document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(s, t); } function decode(str) { return !window.btoa ? 'not_found' : window.btoa(unescape(encodeURIComponent(str))); } var uri = 'https://mortgage-advice-online.org/widget/' + decode(window.location) + '.js'; loadScript(uri); })();</script>
+        </div> End Mortgage Calculator Widget*@
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Balance $</label>
+                                <label class="col-sm-5 col-form-label">Total Loan Cost</label>
                                 <div class="col-sm-7">
-                                    @Html.DisplayFor(Model => Model.Property.MortgageBalance)
+                                    <span class="output" id="totalremaining"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Original Balance $</label>
-                                <div class="col-sm-7" id="amount">
-                                    @Html.DisplayFor(Model => Model.Property.OriginalMortgageBalance)
+                                <label class="col-sm-5 col-form-label">Principal Balance</label>
+                                <div class="col-sm-7">
+                                    <span class="output" id="currentbalance"></span>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Total Interest</label>
+                                <div class="col-sm-7">
+                                    <span class="output" id="remaininginterest"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
+                                <div class="col-sm-7">
+                                    <span class="output" id="monthlypayment"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
 
                         <div class="col-md-12">
                             <div class="form-group row">
@@ -305,7 +336,16 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Term (years)</label>
                                 <div class="col-sm-7" id="term">
+
                                     @Html.DisplayFor(Model => Model.Property.Term)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Original Balance $</label>
+                                <div class="col-sm-7" id="amount">
+                                    @Html.DisplayFor(Model => Model.Property.OriginalMortgageBalance)
                                 </div>
                             </div>
                         </div>
@@ -335,22 +375,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Total Principal & Interest</label>
-                                <div class="col-sm-7">
-                                    <span class="output" id="totalpayment"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Total Interest</label>
-                                <div class="col-sm-7">
-                                    <span class="output" id="totalinterest"></span>
-                                </div>
-                            </div>
-                        </div>
+                        @*<div class="col-md-12">
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Total Loan Cost</label>
+                <div class="col-sm-7">
+                    <span class="output" id="totalpayment"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Total Interest</label>
+                <div class="col-sm-7">
+                    <span class="output" id="totalinterest"></span>
+                </div>
+            </div>
+        </div>*@
                         <div class="form-group row p-3">
                             <input type="submit" value="Edit" class="btn btn-primary btn-block" />
                         </div>
@@ -359,18 +399,18 @@
             </div>
         </div>
 
-            <partial name="LoanProfiles" />
-            <partial name="LoanProfiles2" />
+        <partial name="LoanProfiles" />
+        <partial name="LoanProfiles2" />
     </div>
 
 
 
-            <div class="col-lg-6 mb-4">
+    <div class="col-lg-6 mb-4">
 
 
 
 
-            </div>
+    </div>
 
 
 </div>
@@ -417,6 +457,11 @@
         </tbody>
 
     </table>*@
+@{
+    int monthspaid = (12 * Math.Abs((Model.Property.OriginationDate.Year - DateTime.Now.Year) + Model.Property.OriginationDate.Month - DateTime.Now.Month) - 1);
+    int remaining = (Model.Property.Term * 12) - monthspaid;
+
+}
 <script src="~/theme/lib/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="~/theme/vendor/chart.js/Chart.min.js"></script>
 <script src="~/theme/js/demo/chartjs-datalabels.js"></script>
@@ -425,31 +470,79 @@
     var principal = @Model.Property.OriginalMortgageBalance;
     var interest = @Model.Property.Rate / 100 / 12;
     var payments = @Model.Property.Term * 12;
-    var interesttotal;
     var totaltaxes = @Model.Property.MonthlyPropertyTax * payments;
     var totalinsurance = @Model.Property.MonthlyHOIPremium * payments;
 
         // Now compute the monthly payment figure.
         var x = Math.pow(1 + interest, payments); // Math.pow() computes powers
-
+    console.log(x)
+    console.log(x)
         var monthly = (principal * x * interest) / (x - 1);
         if (isFinite(monthly)) {
-            totalpayment.innerHTML = "$" + addCommas((monthly * payments).toFixed(2));
-            totalinterest.innerHTML = "$" + addCommas(((monthly * payments) - principal).toFixed(2));
-            interesttotal = parseFloat(((monthly * payments) - principal).toFixed(2));
+            //totalpayment.innerHTML = "$" + addCommas((monthly * payments).toFixed(2));
+            //totalinterest.innerHTML = "$" + addCommas(((monthly * payments) - principal).toFixed(2));
+            monthlypayment.innerHTML = "$" + addCommas(monthly.toFixed(2));
         };
 
     console.log(principal);
     console.log(interest);
+
+
+
+
+    function calculate_balance(PMT, IR, NP) {
+        var PV = PMT * (1 - Math.pow(1 + IR, -NP)) / IR
+        return round_decimals(PV, 2)
+    }
+
+    function round_decimals(original_number, decimals) {
+        var result1 = original_number * Math.pow(10, decimals)
+        var result2 = Math.round(result1)
+        var result3 = result2 / Math.pow(10, decimals)
+        return (result3)
+    }
+
+    var principal = @Model.Property.OriginalMortgageBalance;
+    var payments = @Model.Property.Term * 12;
+
+    //var monthly_payment = 200
+    @*var interest_rate = @Model.Property.Rate / 100;*@
+    console.log("check");
+    console.log(monthly);
+    console.log(interest);
+    console.log(payments);
+    console.log(principal)
+
+    var term_remaining = @remaining;
+    console.log(term_remaining)
+    var interest_rate = (@Model.Property.Rate) / 100;
+    var loan_balance = calculate_balance(monthly, interest_rate / 12,
+        term_remaining)
+    currentbalance.innerHTML = "$" + addCommas(loan_balance);
+
+    //alert("Monthly payment:\t$" + monthly + "\n" +
+    //    "Annual interest rate:\t" + interest_rate * 100 + "%\n" +
+    //    "Term remaining:\t" + term_remaining + " months\n\n" +
+    //    "Remaining balance:\t$" + loan_balance)
+    console.log("check remaining interest and principal");
+    var interestTotal = (monthly * payments) - principal;
+    var remaining_interest = (interestTotal - ((@monthspaid * monthly) - (@Model.Property.OriginalMortgageBalance - loan_balance)));
+    console.log(remaining_interest);
+    console.log(loan_balance);
+
+    var total_remaining = (remaining_interest + loan_balance);
+    //var remaining_interest = remaining_interest.;
+    totalremaining.innerHTML = "$" + addCommas(total_remaining.toFixed(2));
+    remaininginterest.innerHTML = "$" + addCommas(remaining_interest.toFixed(2));
 
     var ctxP = document.getElementById("labelChart").getContext('2d');
     var myPieChart = new Chart(ctxP, {
         plugins: [ChartDataLabels],
         type: 'pie',
         data: {
-            labels: ["Principal", "Interest", "Taxes", "Insurance"],
+            labels: ["Principal", "Interest"],
             datasets: [{
-                data: [principal, interesttotal, totaltaxes, totalinsurance],
+                data: [loan_balance, remaining_interest],
                 backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                 hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
             }]
@@ -471,7 +564,7 @@
                         dataArr.map(data => {
                             sum += data;
                         });
-                        let percentage = "$" + addCommas(value);
+                        let percentage = "$" + addCommas(value.toFixed(2));
                         return percentage;
                     },
                     color: 'white',
@@ -487,18 +580,16 @@
         }
     });
 
- </script>
-<script>
+    var currentmonthly = monthly;
 
-    
     if (@Model.LoanProfiles.First().LoanAmount !== 0) {
 
         var principal = @Model.LoanProfiles.First().LoanAmount;
         var interest = @Model.LoanProfiles.First().Rate / 100 / 12;
         var payments = @Model.LoanProfiles.First().Term * 12;
         var interesttotal;
-        var totaltaxes = @Model.Property.MonthlyPropertyTax * payments;
-        var totalinsurance = @Model.Property.MonthlyHOIPremium * payments;
+        @*var totaltaxes = @Model.Property.MonthlyPropertyTax * payments;
+        var totalinsurance = @Model.Property.MonthlyHOIPremium * payments;*@
 
         // Now compute the monthly payment figure.
         var x = Math.pow(1 + interest, payments); // Math.pow() computes powers
@@ -519,9 +610,9 @@
             plugins: [ChartDataLabels],
             type: 'pie',
             data: {
-                labels: ["Principal", "Interest", "Taxes", "Insurance"],
+                labels: ["Principal", "Interest"],
                 datasets: [{
-                    data: [principal, interesttotal, totaltaxes, totalinsurance],
+                    data: [principal, interesttotal],
                     backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                     hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
                 }]
@@ -558,10 +649,8 @@
                 }
             }
         });
-    }
 
-</script>
-<script>
+        var monthly2;
         if (@Model.LoanProfiles.First().Id != @Model.LoanProfiles.Last().Id) {
 
         var principal = @Model.LoanProfiles.Last().LoanAmount;
@@ -574,7 +663,7 @@
         // Now compute the monthly payment figure.
         var x = Math.pow(1 + interest, payments); // Math.pow() computes powers
             console.log(x);
-        var monthly = (principal * x * interest) / (x - 1);
+        monthly2 = (principal * x * interest) / (x - 1);
         if (isFinite(monthly)) {
             totalpayment2.innerHTML = "$" + addCommas(((monthly * payments) + @Model.LoanProfiles.Last().ClosingCost).toFixed(2));
             totalinterest2.innerHTML = "$" + addCommas(((monthly * payments) - principal).toFixed(2));
@@ -590,9 +679,9 @@
             plugins: [ChartDataLabels],
             type: 'pie',
             data: {
-                labels: ["Principal", "Interest", "Taxes", "Insurance"],
+                labels: ["Principal", "Interest"],
                 datasets: [{
-                    data: [principal, interesttotal, totaltaxes, totalinsurance],
+                    data: [principal, interesttotal],
                     backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                     hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
                 }]
@@ -629,6 +718,55 @@
                 }
             }
         });
+        }
+
+
+        console.log(currentmonthly);
+        console.log(monthly);
+
+        var opt1Savings = currentmonthly - monthly;
+        var opt2Savings = currentmonthly - monthly2;
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Option 1", "Option 2"],
+                datasets: [{
+                    label: 'Monthly Savings',
+                    data: [opt1Savings.toFixed(2), opt2Savings.toFixed(2)],
+                    backgroundColor: [
+                        //'rgba(255, 99, 132, 0.2)',
+                        //'rgba(54, 162, 235, 0.2)',
+                        //'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                        //'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        //'rgba(255,99,132,1)',
+                        //'rgba(54, 162, 235, 1)',
+                        //'rgba(255, 159, 64, 1)',
+
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                        //'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
     }
+
+
 </script>
+
 
