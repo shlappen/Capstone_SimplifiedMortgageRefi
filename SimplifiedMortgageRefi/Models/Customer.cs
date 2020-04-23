@@ -27,8 +27,12 @@ namespace SimplifiedMortgageRefi.Models
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
 
+        
         public ICollection<Applications_Customers> Applications { get; set; }
         public ICollection<Customers_Properties> Properties {get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:F2}", ApplyFormatInEditMode = true)]
         public double MonthlyIncome { get; set; }
+        public int CreditScore { get; set; }
     }
 }

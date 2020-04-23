@@ -22,7 +22,7 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Lenders.Include(l => l.IdentityUser);
+            var applicationDbContext = _context.Customers.Include(c => c.Applications);
             return View(await applicationDbContext.ToListAsync());
         }
 

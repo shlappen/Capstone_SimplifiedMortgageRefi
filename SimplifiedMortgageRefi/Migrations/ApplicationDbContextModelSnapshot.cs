@@ -48,15 +48,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a0252a57-f73b-47ec-a3d3-7e9b51be14e7",
-                            ConcurrencyStamp = "23d585ab-f1e2-4b2b-b437-5fc49541e5b0",
+                            Id = "a02ddb28-20ff-49d9-8569-ea69186a7c79",
+                            ConcurrencyStamp = "058c2a8e-1505-41cf-8c40-19516f3d02a3",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "f4d38bac-88b0-4e23-9ef2-e74cc6874b54",
-                            ConcurrencyStamp = "446ddb7a-71c3-4dd3-a8f4-307c74f5e736",
+                            Id = "ed31d1b6-7d29-4a25-b9e8-a53afa387ea2",
+                            ConcurrencyStamp = "cfb9b369-04b2-4f87-8d54-29290de4c5b7",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -334,6 +334,9 @@ namespace SimplifiedMortgageRefi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CreditScore")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -460,9 +463,6 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.Property<double>("ClosingCost")
                         .HasColumnType("float");
-
-                    b.Property<int>("CreditScore")
-                        .HasColumnType("int");
 
                     b.Property<double>("DebtToIncome")
                         .HasColumnType("float");

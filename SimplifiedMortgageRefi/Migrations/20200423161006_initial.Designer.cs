@@ -10,7 +10,7 @@ using SimplifiedMortgageRefi.Data;
 namespace SimplifiedMortgageRefi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200420001012_initial")]
+    [Migration("20200423161006_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,15 +50,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8383162f-20b8-4fe4-96d9-f14cd2f1b965",
-                            ConcurrencyStamp = "4d2dbd75-0edd-4035-9856-9d63df86820a",
+                            Id = "ae150da3-c3de-464e-a197-3a097db20d81",
+                            ConcurrencyStamp = "6c0b1a81-d11a-45da-82ae-23c634d1c257",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "085c30f2-b4a3-4a97-8821-16fc8b70cb66",
-                            ConcurrencyStamp = "661b1828-b7f3-4d4e-b4a0-86c19fc63f65",
+                            Id = "1320a4c8-e25d-4b3e-8744-f36b8138b662",
+                            ConcurrencyStamp = "f8bf3f7c-9bc3-4aa5-b22b-b3f8b3c1e7b2",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -347,6 +347,9 @@ namespace SimplifiedMortgageRefi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("MonthlyIncome")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityUserId");
@@ -367,32 +370,6 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasIndex("PropertyId");
 
                     b.ToTable("Customers_Properties");
-                });
-
-            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Income", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsIncluded")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LoanProfileId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("MonthlyGross")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LoanProfileId");
-
-                    b.ToTable("Incomes");
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Lender", b =>
@@ -482,6 +459,9 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
+
+                    b.Property<double>("ClosingCost")
+                        .HasColumnType("float");
 
                     b.Property<int>("CreditScore")
                         .HasColumnType("int");
@@ -594,6 +574,12 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.Property<int>("OccupancyTypeId")
                         .HasColumnType("int");
+
+                    b.Property<double>("OriginalMortgageBalance")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("OriginationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PropertyTypeId")
                         .HasColumnType("int");
@@ -1138,15 +1124,6 @@ namespace SimplifiedMortgageRefi.Migrations
                         .WithMany("Customers")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Income", b =>
-                {
-                    b.HasOne("SimplifiedMortgageRefi.Models.LoanProfile", "LoanProfile")
-                        .WithMany("Incomes")
-                        .HasForeignKey("LoanProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

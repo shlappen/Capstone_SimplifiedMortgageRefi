@@ -21,109 +21,6 @@
     <!-- Content Row -->
     <div class="row">
 
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Content Row -->
-
-    <div class="row">
-        <div class="col-xl-4 col-lg-5">
-            <!-- Bar Chart -->
-            <div class="card shadow mb-4">
-
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Savings</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-bar">
-                        <canvas id="myBarChart"></canvas>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-
-
-
     <!-- Content Row -->
     <div class="row">
         <!-- Pie Chart -->
@@ -152,21 +49,7 @@
                             <canvas id="labelChart"></canvas>
 
                         </div>
-                        @*<div class="mt-4 text-center small">
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-primary"></i> Principal
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-success"></i> Interest
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-info"></i> Taxes
-                                </span>
-                                <span class="mr-2">
-                                    <i class="fas fa-circle text-warning"></i> Insurance
-                                </span>
 
-                            </div>*@
                     </div>
                 </div>
             </div>
@@ -184,36 +67,7 @@
 
 
                     <form class="user" asp-action="EditCurrentMortgage">
-                        @*Use the following later for better display for UI*@
-                        @*<div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                    <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
-                                    <div class="input-group col-sm-7">
-                                        <div class="input-group-prepend bg-primary border-primary">
-                                            <span class="input-group-text bg-transparent text-white">$</span>
-                                        </div>
-                                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
-                                        <div class="input-group-append bg-primary border-primary">
-                                            <span class="input-group-text bg-transparent text-white">.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="example" class="col-form-label text-gray-900">Rate</label>
-                                    <div class="input-group col-sm-5">
-                                        <div class="input-group-prepend bg-primary border-primary">
-                                            <span class="input-group-text bg-transparent text-white">%</span>
-                                        </div>
-                                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
-                        @*<form class="form-sample">
-                        <p class="card-description"> Personal info </p>*@
+
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Original Balance $</label>
@@ -277,61 +131,10 @@
        
     </div>
 
-
-
-
-        <div class="col-lg-6 mb-4">
-
-
-
-
-        </div>
 </div>
 
 
 
-
-<!-- /.container-fluid -->
-@*</body>*@
-
-
-
-@*<p>
-        <a asp-action="AddProperty">Add New Property</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.LastName)
-                </td>
-
-                <td>
-                    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@Model.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-                </td>
-            </tr>
-
-        </tbody>
-
-    </table>*@
 <script src="~/theme/vendor/chart.js/Chart.min.js"></script>
 <script src="~/theme/js/demo/chartjs-datalabels.js"></script>
 <script type="text/javascript">
@@ -344,7 +147,7 @@
         data: {
             labels: ["Principal", "Interest", "Taxes", "Insurance"],
             datasets: [{
-                data: [100, 100, 100, 100],
+                data: ["Your info will display here"],
                 backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
                 hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
             }]
@@ -366,7 +169,7 @@
                         dataArr.map(data => {
                             sum += data;
                         });
-                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        let percentage = value;
                         return percentage;
                     },
                     color: 'white',
@@ -381,37 +184,6 @@
             }
         }
     });
-
-    //var ctx = document.getElementById("myPieChart");
-    //var myPieChart = new Chart(ctx, {
-    //    type: 'doughnut',
-    //    data: {
-    //        labels: ["Principal", "Interest", "Taxes"],
-    //        datasets: [{
-    //            data: [55, 30, 15],
-    //            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-    //            hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-    //            hoverBorderColor: "rgba(234, 236, 244, 1)",
-    //        }],
-    //    },
-    //    options: {
-    //        maintainAspectRatio: false,
-    //        tooltips: {
-    //            backgroundColor: "rgb(255,255,255)",
-    //            bodyFontColor: "#858796",
-    //            borderColor: '#dddfeb',
-    //            borderWidth: 1,
-    //            xPadding: 15,
-    //            yPadding: 15,
-    //            displayColors: false,
-    //            caretPadding: 10,
-    //        },
-    //        legend: {
-    //            display: false
-    //        },
-    //        cutoutPercentage: 80,
-    //    },
-    //});
 
 </script>
 

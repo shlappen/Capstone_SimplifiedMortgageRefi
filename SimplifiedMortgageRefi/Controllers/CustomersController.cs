@@ -139,15 +139,7 @@ namespace SimplifiedMortgageRefi.Controllers
             return View(customer);
         }
 
-        //public IActionResult CreateLoanProfile(int? id)
-        //{
-        //    var applicationInDb = _context.Applications.Where(a => a.Id == id).FirstOrDefault();
-        //    //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    //var customerInDb = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefaultAsync();
-
-        //    return View();
-        //}
-
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateLoanProfile([Bind("Id")] Application application,
@@ -175,15 +167,6 @@ namespace SimplifiedMortgageRefi.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = await _context.Customers.Where(c => c.IdentityUserId == userId)
                 .FirstOrDefaultAsync();
-
-            //ViewData["CustomerProperties"] = new SelectList(customer.Properties);
-            //var propertyId = _context.Properties.Include(p => p.Customers).ThenInclude(c => c.PropertyId).Where(c => c.)
-            //var property = _context.Properties.Where(p => p.Id == property.Id).FirstOrDefaultAsync();
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
 
             if (customer == null)
             {
@@ -275,12 +258,14 @@ namespace SimplifiedMortgageRefi.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
+
+
         // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> EditIncome(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -291,7 +276,6 @@ namespace SimplifiedMortgageRefi.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
 
@@ -300,35 +284,65 @@ namespace SimplifiedMortgageRefi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> EditIncome(int id, [Bind("MonthlyIncome")] Customer customer)
         {
-            if (id != customer.Id)
+
+                    var customerInDb = _context.Customers.Where(c => c.Id == id).FirstOrDefault();
+                    customerInDb.MonthlyIncome = customer.MonthlyIncome;
+                    _context.Update(customerInDb);
+                    await _context.SaveChangesAsync();
+          
+                return RedirectToAction(nameof(Index));
+            
+        }
+        public async Task<IActionResult> EditPropertyValue(int? id)
+        {
+
+            if (id == null)
             {
                 return NotFound();
             }
 
+            var property = await _context.Properties.FindAsync(id);
+            if (property == null)
+            {
+                return NotFound();
+            }
+            return View(property);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPropertyValue(int id, [Bind("AssessedValue")] Property property)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                //Get customer
+                var propertyInDb = _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefault();
+                propertyInDb.AssessedValue = property.AssessedValue;
+
+                _context.Update(propertyInDb);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+
             return View(customer);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditCreditScore(int id, [Bind("CreditScore")] Customer customer)
+        {
+
+            var customerInDb = _context.Customers.Where(c => c.Id == id).FirstOrDefault();
+            customerInDb.CreditScore = customer.CreditScore;
+            _context.Update(customerInDb);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Customers/Delete/5

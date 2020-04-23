@@ -19,9 +19,6 @@ namespace SimplifiedMortgageRefi.Models
 
         public int EstimatedValue { get; set; }
 
-        public int CreditScore { get; set; }
-
-
         public int ApplicationId { get; set; }
         public Application Application { get; set; }
 

@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group row">
-                            <label class="col-sm-5 col-form-label">Closing Costs</label>
+                            <label class="col-sm-5 col-form-label">Closing Costs Not Financed (Paid At Close)</label>
                             <div class="col-sm-7">
                                 <input type="text" name="ClosingCost" class="form-control">
                             </div>
@@ -75,7 +75,7 @@ else
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Principal Balance</label>
                         <div class="col-sm-7">
-                            @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().LoanAmount)
+                            $@Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().LoanAmount)
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ else
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Rate</label>
                         <div class="col-sm-7">
-                            @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().Rate)
+                            @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().Rate)%
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ else
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">Closing Costs Not Financed (Paid At Close)</label>
                         <div class="col-sm-7">
-                            @Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().ClosingCost)
+                            $@Html.DisplayFor(Model => Model.LoanProfiles.FirstOrDefault().ClosingCost)
                         </div>
                     </div>
                 </div>

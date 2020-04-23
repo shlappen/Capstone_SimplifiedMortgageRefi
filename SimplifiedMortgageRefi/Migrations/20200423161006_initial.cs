@@ -226,7 +226,8 @@ namespace SimplifiedMortgageRefi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
-                    IdentityUserId = table.Column<string>(nullable: true)
+                    IdentityUserId = table.Column<string>(nullable: true),
+                    MonthlyIncome = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -290,7 +291,9 @@ namespace SimplifiedMortgageRefi.Migrations
                     AddressId = table.Column<int>(nullable: false),
                     AssessedValue = table.Column<int>(nullable: true),
                     MortgageBalance = table.Column<double>(nullable: false),
+                    OriginalMortgageBalance = table.Column<double>(nullable: false),
                     MonthlyPayment = table.Column<double>(nullable: false),
+                    OriginationDate = table.Column<DateTime>(nullable: false),
                     Rate = table.Column<double>(nullable: false),
                     Term = table.Column<int>(nullable: false),
                     MonthlyPropertyTax = table.Column<double>(nullable: false),
@@ -433,6 +436,7 @@ namespace SimplifiedMortgageRefi.Migrations
                     CreditScore = table.Column<int>(nullable: false),
                     ApplicationId = table.Column<int>(nullable: false),
                     IsCashOut = table.Column<bool>(nullable: false),
+                    ClosingCost = table.Column<double>(nullable: false),
                     IsCurrentMortgage = table.Column<bool>(nullable: false),
                     DebtToIncome = table.Column<double>(nullable: false),
                     LoanToValue = table.Column<double>(nullable: false),
@@ -451,28 +455,6 @@ namespace SimplifiedMortgageRefi.Migrations
                         name: "FK_LoanProfiles_Purposes_PurposeId",
                         column: x => x.PurposeId,
                         principalTable: "Purposes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Incomes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Source = table.Column<string>(nullable: true),
-                    IsIncluded = table.Column<bool>(nullable: false),
-                    MonthlyGross = table.Column<double>(nullable: false),
-                    LoanProfileId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Incomes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Incomes_LoanProfiles_LoanProfileId",
-                        column: x => x.LoanProfileId,
-                        principalTable: "LoanProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -520,8 +502,8 @@ namespace SimplifiedMortgageRefi.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "8383162f-20b8-4fe4-96d9-f14cd2f1b965", "4d2dbd75-0edd-4035-9856-9d63df86820a", "Customer", "CUSTOMER" },
-                    { "085c30f2-b4a3-4a97-8821-16fc8b70cb66", "661b1828-b7f3-4d4e-b4a0-86c19fc63f65", "Lender", "LENDER" }
+                    { "ae150da3-c3de-464e-a197-3a097db20d81", "6c0b1a81-d11a-45da-82ae-23c634d1c257", "Customer", "CUSTOMER" },
+                    { "1320a4c8-e25d-4b3e-8744-f36b8138b662", "f8bf3f7c-9bc3-4aa5-b22b-b3f8b3c1e7b2", "Lender", "LENDER" }
                 });
 
             migrationBuilder.InsertData(
@@ -687,11 +669,6 @@ namespace SimplifiedMortgageRefi.Migrations
                 column: "PropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Incomes_LoanProfileId",
-                table: "Incomes",
-                column: "LoanProfileId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Lenders_IdentityUserId",
                 table: "Lenders",
                 column: "IdentityUserId");
@@ -762,9 +739,6 @@ namespace SimplifiedMortgageRefi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers_Properties");
-
-            migrationBuilder.DropTable(
-                name: "Incomes");
 
             migrationBuilder.DropTable(
                 name: "Liabilities");
