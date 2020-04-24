@@ -33,10 +33,12 @@ namespace SimplifiedMortgageRefi.Controllers
             var application = await _context.Applications_Customers.Where(c => c.CustomerId == customer.Id).Select(d => d.Application).FirstOrDefaultAsync();
             var loanProfiles = await _context.LoanProfiles.Where(c => c.ApplicationId == application.Id).ToListAsync();
             var propertyInDb = await _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefaultAsync();
+            var liabilities = await _context.Liabilities.Where(l => l.ApplicationId == application.Id).ToListAsync();
 
             indexCustomerViewModel.Property = propertyInDb;
             indexCustomerViewModel.Application = application;
             indexCustomerViewModel.LoanProfiles = loanProfiles;
+            indexCustomerViewModel.Liabilities = liabilities;
             return View(indexCustomerViewModel);
         }
 
@@ -199,7 +201,36 @@ namespace SimplifiedMortgageRefi.Controllers
             return View(customer);
         }
 
+        public async Task<IActionResult> EditLiabilities(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
+            var application = await _context.Applications.FindAsync(id);
+            if (application == null)
+            {
+                return NotFound();
+            }
+            indexCustomerViewModel.Application = application;
+            return View(indexCustomerViewModel);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLoanProfile(int id, [Bind("LenderName,Balance,Payment")] Liability liability)
+        {
+
+            var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
+
+            //indexCustomer
+            //        _context.Update(application);
+                    await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+
+        }
         // GET: Customers/Edit/5
         public async Task<IActionResult> EditLoanProfile(int? id)
         {

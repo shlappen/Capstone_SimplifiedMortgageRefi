@@ -21,6 +21,7 @@ namespace SimplifiedMortgageRefi.Models
         public ICollection<LoanProfile> LoanProfiles { get; set; }
         public ICollection<Contact> Contacts {get; set;}
         public ICollection<Applications_Customers> Customers { get; set; }
+        public ICollection<Liability> Liabilities { get; set; }
 
     }
 }

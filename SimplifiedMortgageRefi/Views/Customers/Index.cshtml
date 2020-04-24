@@ -1,4 +1,5 @@
 ﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel
+@using System.Linq
 
 @{
     Layout = "_CustomerDashboard";
@@ -28,37 +29,82 @@
             <div class="card shadow mb-4">
 
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">My Ratios</h6>
+                    <h6 class="m-0 d-inline-flex float-left font-weight-bold text-primary">My Ratios</h6>
+
+                    <a class="d-inline-flex float-right text-primary" asp-action="EditLiabilities" asp-route-id="@Model.Application.Id">Edit My Debts</a>
                 </div>
                 <div class="card-body">
-                    <div class="row no-gutters align-items-center">
+
+                    <div class="row mb-2 no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">My Loan-To-Value</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Current Loan-To-Value</div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="currentLTV"></div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="currentLTVBar"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">My Debt-To-Income</div>
+
+                        <div class="col ml-2 mr-2 float-right">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Current Lendable Equity</div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="lendableEquity"></div>
                                 </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="col mr-2 float-right">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Maximum Loan Amount (80% of Value)</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="maxLoanAmount"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+   
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Current Debt-To-Income</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="currentDTI"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="progress progress-sm mr-2">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="43" id="currentDTIBar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col ml-2 mr-2 float-right">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Current Monthly Debt Total</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="currentDebtTotal"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col mr-2 float-right">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Debt Ceiling (43% of Income)</div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="currentDebtCeiling"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -154,13 +200,6 @@
                             @*<i class="fas fa-angle-double-up text-success"></i>*@
                             <i class="fas fa-angle-double-down text-success"></i>
                         </a>
-                        @*<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>*@
                     </div>
                 </div>
                 <!-- Card Body -->
@@ -648,6 +687,18 @@
     monthlyIncome.innerHTML = "$" + addCommas(@Model.Customer.MonthlyIncome)
     annualIncome.innerHTML = "$" + addCommas(@Model.Customer.MonthlyIncome * 12);
     estimatedValue.innerHTML = "$" + addCommas(@Model.Property.AssessedValue);
+    console.log(loan_balance);
+
+    var currentLTVpercent = ((loan_balance / @Model.Property.AssessedValue) * 100).toFixed(2);
+    currentLTV.innerHTML = currentLTVpercent + "%";
+    document.getElementById("currentLTVBar").style.width = currentLTVpercent + "%";
+
+    var maxLoan = (@Model.Property.AssessedValue * .8);
+    var currentEquity = (maxLoan - loan_balance).toFixed(2);
+    lendableEquity.innerHTML = "$" + addCommas(currentEquity);
+    maxLoanAmount.innerHTML = "$" + addCommas((maxLoan.toFixed(0)));
+
+
 </script>
 
 

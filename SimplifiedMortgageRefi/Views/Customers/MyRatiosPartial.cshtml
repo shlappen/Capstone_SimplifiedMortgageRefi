@@ -108,12 +108,19 @@
                         @{
                             if (Model.Customer.CreditScore == 0)
                             {
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Select Credit Score</div>
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Credit Score</div>
                                 <form asp-action="EditCreditScore">
                                     <div class="input-group user">
                                         <i class="input-group-addon glyphicon glyphicon-usd" style="float:left"></i>
                                         <div style="overflow: hidden; padding-right: .6em;">
-                                            <input asp-for="Customer.CreditScore" class="form-control form-control-user" style="width:100%" />
+                                            <select asp-for="Customer.CreditScore" class="form-control-user user" style="width:100%">
+                                                <option selected="selected" value="0" >Choose a FICO score range</option>
+                                                <option value="740" >Excellent (740 and above)</option>
+                                                <option value="700" >Very Good (700-739)</option>
+                                                <option value="660" >Good (660-699)</option>
+                                                <option value="620" >Fair (620-659)</option>
+                                                <option value="619" >Other (619 and below)</option>
+                                            </select>
                                         </div>
                                         <input type="submit" value="Save" class="btn btn-primary" style="float: right" />
                                     </div>
