@@ -12,14 +12,15 @@ namespace SimplifiedMortgageRefi.Models
         public int AddressId {get; set; }
         public Address Address { get; set; }
 
-        public int? AssessedValue { get; set; }
+        public int AssessedValue { get; set; }
 
         public double MortgageBalance { get; set; }
         public double OriginalMortgageBalance { get; set; }
         public double MonthlyPayment { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = true)]
+        
         public DateTime OriginationDate { get; set; }
 
         public double Rate { get; set; }

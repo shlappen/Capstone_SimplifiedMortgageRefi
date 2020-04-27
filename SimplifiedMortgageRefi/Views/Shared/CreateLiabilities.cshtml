@@ -1,0 +1,111 @@
+﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel
+
+@{
+    ViewData["Title"] = "Liabilities";
+    Layout = "~/Views/Shared/_CustomerDashboard.cshtml";
+}
+
+<h1>Manage My Debts</h1>
+
+<h4>Add your debt list below</h4>
+<hr />
+<div class="row mr-4 ml-4">
+
+
+    <div class="col-md-4 d-inline-flex float-left">
+        <form asp-action="CreateLiabilities">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Application.Id" />
+            <div class="form-group">
+                <label asp-for="Liability.LenderName" class="control-label"></label>
+                <input asp-for="Liability.LenderName" class="form-control" />
+                <span asp-validation-for="Liability.LenderName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Liability.Balance" class="control-label"></label>
+                <input asp-for="Liability.Balance" class="form-control" />
+                <span asp-validation-for="Liability.Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Monthly Payment</label>
+                <input asp-for="Liability.Payment" class="form-control" />
+                <span asp-validation-for="Liability.Payment" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+
+                <input class="form-check-input" asp-for="Liability.IsConsolidated" />
+                <label class="form-check-label">I am planning to consolidate this debt into the new mortgage</label>
+
+            </div>
+            <div class="form-group">
+                <label class="form-check-label">Type of Debt</label>
+                 <select asp-for="Liability.LiabilityTypeId" class="form-control form-control-user" asp-items=ViewBag.LiabilityTypes placeholder="Select"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Lender Name
+                    </th>
+                    <th>
+                        Balance
+                    </th>
+                    <th>
+                        Payment
+                    </th>
+                    <th>
+                        Type of Debt
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model.Application.Liabilities != null)
+                {
+
+                    foreach (var item in Model.Liabilities)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LenderName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Balance)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Payment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LiabilityType.Name)
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+<div class="row mr-4 ml-4">
+
+    <div>
+        <a asp-action="Index">Back to My Dashboard</a>
+    </div>
+
+</div>

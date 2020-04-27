@@ -26,11 +26,7 @@ namespace SimplifiedMortgageRefi.Models
         public int ApplicationId { get; set; }
         public Application Application { get; set; }
 
-
-        [Display(Name = "Loan Profile")]
-        public int LoanProfileId { get; set; }
-        public LoanProfile LoanProfile { get; set; }
-
+        public virtual ICollection<Liabilities_LoanProfiles> LoanProfiles { get; set; }
 
         [Display(Name = "Liability Type")]
         public int LiabilityTypeId { get; set; }

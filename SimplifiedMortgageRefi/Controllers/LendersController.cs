@@ -34,7 +34,7 @@ namespace SimplifiedMortgageRefi.Controllers
                 return NotFound();
             }
 
-            var lender = await _context.Lenders
+            var lender = await _context.Customers
                 .Include(l => l.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (lender == null)
@@ -48,7 +48,6 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Lenders/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -77,12 +76,11 @@ namespace SimplifiedMortgageRefi.Controllers
                 return NotFound();
             }
 
-            var lender = await _context.Lenders.FindAsync(id);
+            var lender = await _context.Customers.FindAsync(id);
             if (lender == null)
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", lender.IdentityUserId);
             return View(lender);
         }
 
@@ -91,9 +89,9 @@ namespace SimplifiedMortgageRefi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,IdentityUserId")] Lender lender)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,IdentityUserId")] Customer customer)
         {
-            if (id != lender.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -102,12 +100,12 @@ namespace SimplifiedMortgageRefi.Controllers
             {
                 try
                 {
-                    _context.Update(lender);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LenderExists(lender.Id))
+                    if (!LenderExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -118,8 +116,7 @@ namespace SimplifiedMortgageRefi.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", lender.IdentityUserId);
-            return View(lender);
+            return View(customer);
         }
 
         // GET: Lenders/Delete/5

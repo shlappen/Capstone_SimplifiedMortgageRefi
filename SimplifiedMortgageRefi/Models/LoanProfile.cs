@@ -28,7 +28,7 @@ namespace SimplifiedMortgageRefi.Models
 
         public bool IsCurrentMortgage { get; set; }
 
-        public ICollection<Liability> Liabilities { get; set; }
+        public ICollection<Liabilities_LoanProfiles> Liabilities { get; set; }
 
         public double DebtToIncome { get; set; }
         public double LoanToValue { get; set; }

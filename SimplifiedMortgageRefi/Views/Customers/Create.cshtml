@@ -10,12 +10,12 @@
         @*<header class="bg-primary py-5 mb-5">
             <div class="container h-100">
                 <div class="row h-100 align-items-center">*@
-                    <div class="col-lg-12">
-                        <h4 class="display-4 text-white mt-5 mb-2">Just the basics first</h4>
-                    </div>
-                @*</div>
-            </div>
-        </header>*@
+        <div class="col-lg-12">
+            <h5 class="display-4 text-white mt-5 mb-2">Just the basics first</h5>
+        </div>
+        @*</div>
+                </div>
+            </header>*@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -67,17 +67,38 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Is this your primary residence?</label>
-                                            <select asp-for="@Model.Property.OccupancyTypeId" class="form-control form-control-user" asp-items="ViewBag.OccupancyTypes"></select>
+                                            <label class="control-label">What is the value of your home in today's market?</label>
+                                            <input asp-for="Property.AssessedValue" class="form-control form-control-user" />
+                                            <span asp-validation-for="@Model.Property.AssessedValue" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Please select the property type of this home.</label>
-                                            <select asp-for="@Model.Property.PropertyTypeId" class="form-control form-control-user" asp-items="ViewBag.PropertyTypes"></select>
+                                            <label class="control-label">What is your monthly income?</label>
+                                            <input asp-for="Customer.MonthlyIncome" class="form-control form-control-user" />
+                                            <span asp-validation-for="@Model.Customer.MonthlyIncome" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Credit Score</label>
+                                            <select asp-for="Customer.CreditScore" class="form-control form-control-user" style="width:100%">
+                                                <option selected="selected" value="0">Choose a FICO score range</option>
+                                                <option value="740">Excellent (740 and above)</option>
+                                                <option value="700">Very Good (700-739)</option>
+                                                <option value="660">Good (660-699)</option>
+                                                <option value="620">Fair (620-659)</option>
+                                                <option value="619">Other (619 and below)</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">What is your goal in refinancing your mortgage?</label>
                                             <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
                                         </div>
+                                        @*<div class="form-group">
+            <label class="control-label">Please select the property type of this home.</label>
+            <select asp-for="@Model.Property.PropertyTypeId" class="form-control form-control-user" asp-items="ViewBag.PropertyTypes"></select>
+        </div>
+        <div class="form-group">
+            <label class="control-label">What is your goal in refinancing your mortgage?</label>
+            <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
+        </div>*@
                                         <div>
 
                                         </div>
@@ -98,11 +119,13 @@
 </body>
 
 
-                            @*<div>
-                                    <a asp-action="Index">Back to List</a>
-                                </div>*@
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@<div>
+    <a asp-action="Index"></a>
+</div>
 
 
 @section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

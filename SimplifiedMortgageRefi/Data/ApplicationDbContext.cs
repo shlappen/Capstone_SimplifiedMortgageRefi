@@ -23,6 +23,7 @@ namespace SimplifiedMortgageRefi.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Customers_Properties> Customers_Properties { get; set; }
         public DbSet<Lender> Lenders { get; set; }
+        public DbSet<Liabilities_LoanProfiles> Liabilities_LoanProfiles {get; set;}
         public DbSet<Liability> Liabilities { get; set; }
         public DbSet<LiabilityType> LiabilityTypes { get; set; }
         public DbSet<LoanProfile> LoanProfiles { get; set; }
@@ -50,8 +51,8 @@ namespace SimplifiedMortgageRefi.Data
                 .HasData(
                     new IdentityRole
                     {
-                    Name = "Lender",
-                    NormalizedName = "LENDER"
+                        Name = "Lender",
+                        NormalizedName = "LENDER"
                     }
                 );
 
@@ -331,7 +332,7 @@ namespace SimplifiedMortgageRefi.Data
                     {
                         Id = 46,
                         Name = "Vermont",
-                        Abbreviation ="VT"
+                        Abbreviation = "VT"
                     },
                     new USState
                     {
@@ -387,60 +388,82 @@ namespace SimplifiedMortgageRefi.Data
                     Name = "other"
                 }
             );
-                 builder.Entity<PropertyType>()
-                .HasData(new PropertyType
+            builder.Entity<PropertyType>()
+           .HasData(new PropertyType
+           {
+               Id = 1,
+               Name = "Single Family"
+           },
+           new PropertyType
+           {
+               Id = 2,
+               Name = "Condominium"
+           },
+           new PropertyType
+           {
+               Id = 3,
+               Name = "Townhouse"
+           },
+           new PropertyType
+           {
+               Id = 4,
+               Name = "Multi-Family"
+           },
+           new PropertyType
+           {
+               Id = 5,
+               Name = "Other"
+           }
+       );
+            builder.Entity<OccupancyType>()
+           .HasData(new OccupancyType
+           {
+               Id = 1,
+               Name = "Primary Residence"
+           },
+           new OccupancyType
+           {
+               Id = 2,
+               Name = "Investment Property"
+           },
+           new OccupancyType
+           {
+               Id = 3,
+               Name = "Second Home"
+           },
+           new OccupancyType
+           {
+               Id = 4,
+               Name = "Family Member Lives Here"
+           },
+           new OccupancyType
+           {
+               Id = 5,
+               Name = "Other"
+           }
+       );
+            builder.Entity<LiabilityType>()
+                .HasData(new LiabilityType
                 {
                     Id = 1,
-                    Name = "Single Family"
+                    Name = "Credit Card"
                 },
-                new Purpose
+                new LiabilityType
                 {
                     Id = 2,
-                    Name = "Condominium"
+                    Name = "Loan"
                 },
-                new Purpose
+                new LiabilityType
                 {
                     Id = 3,
-                    Name = "Townhouse"
+                    Name = "Lease"
                 },
-                new Purpose
+                new LiabilityType
                 {
                     Id = 4,
-                    Name = "Multi-Family"
-                },
-                new Purpose
-                {
-                    Id = 5,
-                    Name = "Other"
+                    Name = "Mortgage"
                 }
-            );
-                 builder.Entity<OccupancyType>()
-                .HasData(new PropertyType
-                {
-                    Id = 1,
-                    Name = "Primary Residence"
-                },
-                new Purpose
-                {
-                    Id = 2,
-                    Name = "Investment Property"
-                },
-                new Purpose
-                {
-                    Id = 3,
-                    Name = "Second Home"
-                },
-                new Purpose
-                {
-                    Id = 4,
-                    Name = "Family Member Lives Here"
-                },
-                new Purpose
-                {
-                    Id = 5,
-                    Name = "Other"
-                }
-            );
+        );
 
             builder.Entity<Application>()
                 .HasOne(a => a.Property)
@@ -459,9 +482,19 @@ namespace SimplifiedMortgageRefi.Data
                 .HasMany(a => a.Contacts)
                 .WithOne(b => b.Lender);
 
-            builder.Entity<LoanProfile>()
-                .HasMany(a => a.Liabilities)
-                .WithOne(b => b.LoanProfile)
+ 
+
+            builder.Entity<Liabilities_LoanProfiles>()
+                .HasKey(ab => new { ab.LiabilityId, ab.LoanProfileId });
+            builder.Entity<Liabilities_LoanProfiles>()
+                .HasOne(ab => ab.Liability)
+                .WithMany(b => b.LoanProfiles)
+                .HasForeignKey(ab => ab.LiabilityId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Liabilities_LoanProfiles>()
+                .HasOne(ab => ab.LoanProfile)
+                .WithMany(b => b.Liabilities)
+                .HasForeignKey(ab => ab.LoanProfileId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Applications_Customers>()

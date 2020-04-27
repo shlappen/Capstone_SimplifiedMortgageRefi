@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimplifiedMortgageRefi.Data;
 
 namespace SimplifiedMortgageRefi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200424170021_UpdatedLiabilityTypes")]
+    partial class UpdatedLiabilityTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "524894d7-c29d-40ed-bb43-92c2600021f9",
-                            ConcurrencyStamp = "cd06ce19-6a40-4a3c-9591-3cfc11ba9e8c",
+                            Id = "f366fded-6115-499f-84ef-ddbc0c882244",
+                            ConcurrencyStamp = "79bd7dca-39e5-45c4-a8ad-58d81bccbeb2",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "0a9822b1-d581-4295-968a-fa73d2f1847c",
-                            ConcurrencyStamp = "1ae85572-354a-46e6-bc80-0fef72e053f7",
+                            Id = "f0abe82e-0e34-4341-b9e8-843d37f46ef0",
+                            ConcurrencyStamp = "c44e891d-ee40-426c-a9e1-ad79e815cde7",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -394,21 +396,6 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.ToTable("Lenders");
                 });
 
-            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liabilities_LoanProfiles", b =>
-                {
-                    b.Property<int>("LiabilityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LoanProfileId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LiabilityId", "LoanProfileId");
-
-                    b.HasIndex("LoanProfileId");
-
-                    b.ToTable("Liabilities_LoanProfiles");
-                });
-
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liability", b =>
                 {
                     b.Property<int>("Id")
@@ -434,6 +421,9 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.Property<int>("LiabilityTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("LoanProfileId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Payment")
                         .HasColumnType("float");
 
@@ -442,6 +432,8 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.HasIndex("LiabilityTypeId");
+
+                    b.HasIndex("LoanProfileId");
 
                     b.ToTable("Liabilities");
                 });
@@ -1164,21 +1156,6 @@ namespace SimplifiedMortgageRefi.Migrations
                         .HasForeignKey("IdentityUserId");
                 });
 
-            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liabilities_LoanProfiles", b =>
-                {
-                    b.HasOne("SimplifiedMortgageRefi.Models.Liability", "Liability")
-                        .WithMany("LoanProfiles")
-                        .HasForeignKey("LiabilityId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SimplifiedMortgageRefi.Models.LoanProfile", "LoanProfile")
-                        .WithMany("Liabilities")
-                        .HasForeignKey("LoanProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liability", b =>
                 {
                     b.HasOne("SimplifiedMortgageRefi.Models.Application", "Application")
@@ -1191,6 +1168,12 @@ namespace SimplifiedMortgageRefi.Migrations
                         .WithMany()
                         .HasForeignKey("LiabilityTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SimplifiedMortgageRefi.Models.LoanProfile", "LoanProfile")
+                        .WithMany("Liabilities")
+                        .HasForeignKey("LoanProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

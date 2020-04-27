@@ -81,8 +81,8 @@ namespace SimplifiedMortgageRefi.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("FirstName,LastName")] Customer customer,
-            [Bind("PropertyTypeId, OccupancyTypeId")] Property property,
+            [Bind("FirstName,LastName,CreditScore,MonthlyIncome")] Customer customer,
+            [Bind("AssessedValue")] Property property,
             [Bind("Street, City, StateId, ZipCode")] Address address,
             [Bind("PurposeId")] LoanProfile loanProfile)
         {
@@ -99,6 +99,8 @@ namespace SimplifiedMortgageRefi.Controllers
                 _context.SaveChanges(); //Customer and Address get PK
 
                 property.AddressId = address.Id; //Add AddressId as FK to property
+                property.OccupancyTypeId = 1;
+                property.PropertyTypeId = 1;
                 _context.Add(property); // 
                 _context.SaveChanges(); //give Property a PK
 
@@ -120,8 +122,6 @@ namespace SimplifiedMortgageRefi.Controllers
                 _context.Add(applications_Customers);
 
 
-
-
                 loanProfile.Originator = "Customer";
                 loanProfile.ApplicationId = application.Id;
                 if (loanProfile.PurposeId == 2)
@@ -131,8 +131,6 @@ namespace SimplifiedMortgageRefi.Controllers
                 _context.Add(loanProfile);
 
                 _context.SaveChanges();
-
-
 
 
                 await _context.SaveChangesAsync();
@@ -147,11 +145,9 @@ namespace SimplifiedMortgageRefi.Controllers
         public async Task<IActionResult> CreateLoanProfile([Bind("Id")] Application application,
     [Bind("Term,Rate,LoanAmount,ClosingCost")] LoanProfile loanProfile)
         {
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+           
             if (ModelState.IsValid)
             {
-                //var applicationInDb = _context.Applications.Where(a => a.Id == application.Id).FirstOrDefault();
                 var purposeId = _context.LoanProfiles.Where(l => l.ApplicationId == application.Id).Select(p => p.PurposeId).FirstOrDefault();
                 loanProfile.Originator = "Customer";
                 loanProfile.ApplicationId = application.Id;
@@ -164,7 +160,7 @@ namespace SimplifiedMortgageRefi.Controllers
             }
             return View();
         }
-        public async Task <IActionResult> EditCurrentMortgage()
+        public async Task<IActionResult> EditCurrentMortgage()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = await _context.Customers.Where(c => c.IdentityUserId == userId)
@@ -174,7 +170,13 @@ namespace SimplifiedMortgageRefi.Controllers
             {
                 return NotFound();
             }
-            return View(customer);
+
+            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel()
+            {
+                Customer = customer
+            };
+
+            return View(indexCustomerViewModel);
         }
 
         [HttpPost]
@@ -201,36 +203,7 @@ namespace SimplifiedMortgageRefi.Controllers
             return View(customer);
         }
 
-        public async Task<IActionResult> EditLiabilities(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
-            var application = await _context.Applications.FindAsync(id);
-            if (application == null)
-            {
-                return NotFound();
-            }
-            indexCustomerViewModel.Application = application;
-            return View(indexCustomerViewModel);
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditLoanProfile(int id, [Bind("LenderName,Balance,Payment")] Liability liability)
-        {
-
-            var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
-
-            //indexCustomer
-            //        _context.Update(application);
-                    await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-
-        }
         // GET: Customers/Edit/5
         public async Task<IActionResult> EditLoanProfile(int? id)
         {
@@ -374,6 +347,89 @@ namespace SimplifiedMortgageRefi.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult CreateLiabilities(int id)
+        {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+
+            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
+
+
+            var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
+            var liabilities = _context.Liabilities.Where(l => l.ApplicationId == id).ToList();
+            indexCustomerViewModel.Liabilities = liabilities;
+
+            if(!liabilities.Any())
+            {
+                applicationInDb.Liabilities = null;
+            }
+            Liability newLiability = new Liability();
+            indexCustomerViewModel.Application = applicationInDb;
+            indexCustomerViewModel.Liability = newLiability;
+            indexCustomerViewModel.Customer = customer;
+            ViewData["LiabilityTypes"] = new SelectList(_context.LiabilityTypes, "Id", "Name");
+
+            return View(indexCustomerViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLiabilities(int id, [Bind("LenderName,Balance,Payment,IsConsolidated,LiabilityTypeId")] Liability liability)
+        {
+
+            var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
+            var loanProfiles = _context.LoanProfiles.Where(a => a.ApplicationId == id).ToList();
+            liability.ApplicationId = id;
+            _context.Add(liability);
+            _context.SaveChanges();
+
+            Liabilities_LoanProfiles liabilitiesLoanProfiles = new Liabilities_LoanProfiles();
+            foreach (var item in loanProfiles)
+            {
+                liabilitiesLoanProfiles.LoanProfileId = item.Id;
+                liabilitiesLoanProfiles.LiabilityId = liability.Id;
+                _context.Liabilities_LoanProfiles.Add(liabilitiesLoanProfiles);
+            }
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(CreateLiabilities));
+
+        }
+        public async Task<IActionResult> EditLiabilities(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
+            var application = await _context.Applications.FindAsync(id);
+            var liabilities = await _context.Liabilities.Where(a => a.ApplicationId == application.Id).ToListAsync();
+            if (application == null)
+            {
+                return NotFound();
+            }
+            indexCustomerViewModel.Application = application;
+            indexCustomerViewModel.Application.Liabilities = liabilities;
+            return View(indexCustomerViewModel);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLiabilities(int id, [Bind("LenderName,Balance,Payment")] Liability liability)
+        {
+
+            var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
+
+            //indexCustomer
+            //        _context.Update(application);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Customers/Delete/5
