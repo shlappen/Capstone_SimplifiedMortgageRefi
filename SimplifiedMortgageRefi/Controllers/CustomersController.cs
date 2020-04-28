@@ -197,6 +197,19 @@ namespace SimplifiedMortgageRefi.Controllers
                 propertyInDb.MonthlyPropertyTax = property.MonthlyPropertyTax;
                 propertyInDb.MonthlyHOIPremium = property.MonthlyHOIPremium;
                 propertyInDb.OriginationDate = property.OriginationDate;
+
+                double monthlyRate = property.Rate / 100 / 12;
+                int monthsPaid = 12 * Math.Abs(DateTime.Now.Year - property.OriginationDate.Year) + Math.Abs(DateTime.Now.Month - property.OriginationDate.Month);
+                int monthsLeft = (property.Term * 12) - monthsPaid;
+                int totalPayments = property.Term * 12;
+                var x = Math.Pow(1 + monthlyRate, totalPayments);
+                double monthlyPayment = (property.OriginalMortgageBalance * x * monthlyRate) / (x - 1);
+                propertyInDb.MonthlyPayment = Math.Round(monthlyPayment, 2);
+
+                var currentBalance = monthlyPayment * (1 - Math.Pow(1 + monthlyRate, -(monthsLeft))) / monthlyRate;
+                double loanToValue = Math.Round((currentBalance / propertyInDb.AssessedValue) * 100, 2);
+                propertyInDb.LoanToValue = loanToValue;
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

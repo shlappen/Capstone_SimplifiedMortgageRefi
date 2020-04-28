@@ -215,46 +215,43 @@
     </div>
 
     <div class="row">
+        <!-- Current Mortgage Details -->
         <div class="col-xl-4 col-lg-4">
-
-            <!-- Project Card Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Current Mortgage Details</h6>
                 </div>
                 <div class="p-3">
-
-
                     <form class="user">
                         @*<div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group row">
-                                        <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
-                                        <div class="input-group col-sm-7">
-                                            <div class="input-group-prepend bg-primary border-primary">
-                                                <span class="input-group-text bg-transparent text-white">$</span>
-                                            </div>
-                                            <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
-                                            <div class="input-group-append bg-primary border-primary">
-                                                <span class="input-group-text bg-transparent text-white">.00</span>
-                                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label for="example" class="col-form-label col-sm-5 text-gray-900">Balance</label>
+                                    <div class="input-group col-sm-7">
+                                        <div class="input-group-prepend bg-primary border-primary">
+                                            <span class="input-group-text bg-transparent text-white">$</span>
+                                        </div>
+                                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)">
+                                        <div class="input-group-append bg-primary border-primary">
+                                            <span class="input-group-text bg-transparent text-white">.00</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label for="example" class="col-form-label text-gray-900">Rate</label>
-                                        <div class="input-group col-sm-5">
-                                            <div class="input-group-prepend bg-primary border-primary">
-                                                <span class="input-group-text bg-transparent text-white">%</span>
-                                            </div>
-                                            <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label for="example" class="col-form-label text-gray-900">Rate</label>
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend bg-primary border-primary">
+                                            <span class="input-group-text bg-transparent text-white">%</span>
                                         </div>
+                                        <input type="text" class="form-control text-gray-900" aria-label="Amount (to the nearest dollar)" placeholder="0.00">
                                     </div>
                                 </div>
-                            </div>*@
+                            </div>
+                        </div>*@
                         @*<form class="form-sample">
-                            <p class="card-description"> Personal info </p>*@
+                        <p class="card-description"> Personal info </p>*@
                         @*<div class="row">*@
 
 
@@ -347,24 +344,8 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">Total Loan Cost</label>
-                                    <div class="col-sm-7">
-                                        <span class="output" id="totalpayment"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">Total Interest</label>
-                                    <div class="col-sm-7">
-                                        <span class="output" id="totalinterest"></span>
-                                    </div>
-                                </div>
-                            </div>*@
                         <div class="form-group row p-3">
-                            <input type="submit" value="Edit" class="btn btn-primary btn-block" />
+                            <input type="submit" onclick="editCurrentMortgage" id="editCurrentMortgage" value="Edit" class="btn btn-primary btn-block" />
                         </div>
                     </form>
                 </div>
@@ -398,6 +379,14 @@
 <script src="~/theme/js/demo/chartjs-datalabels.js"></script>
 <script src="~/js/site.js"></script>
 <script async defer type="text/javascript">
+
+
+    $("#editCurrentMortgage").click(function () {
+    $.get('@Url.Action("EditCurrentMortgage","Customers")', {}, function (response) {
+        $("#Display").html(response);
+    });
+});
+
 
     console.log(@monthsPaid);
     console.log(@monthsLeft);
