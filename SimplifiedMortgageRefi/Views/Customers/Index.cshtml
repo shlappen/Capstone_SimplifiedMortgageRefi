@@ -694,6 +694,8 @@
     maxLoanAmount.innerHTML = "$" + addCommas((maxLoan.toFixed(0)));
     };
     currentDTI.innerHTML = @Model.Property.DebtToIncome + "%";
+    currentDebtTotal.innerHTML = "$" + addCommas(@Model.Property.MonthlyExpenses)
+    currentDebtCeiling.innerHTML = "$" + addCommas((@Model.Customer.MonthlyIncome * .43).toFixed(2));
 
 </script>
 
