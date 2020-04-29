@@ -14,6 +14,8 @@ namespace SimplifiedMortgageRefi.Models
 
         public int AssessedValue { get; set; }
         public double LoanToValue { get; set; }
+        public double DebtToIncome { get; set; }
+        public double MonthlyExpenses { get; set; }
 
         public double MortgageBalance { get; set; }
         public double OriginalMortgageBalance { get; set; }

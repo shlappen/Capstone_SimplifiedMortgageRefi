@@ -692,7 +692,8 @@
     var currentEquity = (maxLoan - loan_balance).toFixed(2);
     lendableEquity.innerHTML = "$" + addCommas(currentEquity);
     maxLoanAmount.innerHTML = "$" + addCommas((maxLoan.toFixed(0)));
-    }
+    };
+    currentDTI.innerHTML = @Model.Property.DebtToIncome + "%";
 
 </script>
 

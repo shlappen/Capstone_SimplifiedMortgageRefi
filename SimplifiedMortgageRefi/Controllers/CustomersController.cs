@@ -39,6 +39,17 @@ namespace SimplifiedMortgageRefi.Controllers
             indexCustomerViewModel.Application = application;
             indexCustomerViewModel.LoanProfiles = loanProfiles;
             indexCustomerViewModel.Liabilities = liabilities;
+
+            double liabilityTotal = 0;
+            foreach(var item in liabilities)
+            {
+                liabilityTotal += item.Payment;
+            }
+            double monthlyExpenses = propertyInDb.MonthlyPayment + propertyInDb.MonthlyHOIPremium + propertyInDb.MonthlyPropertyTax + liabilityTotal;
+            propertyInDb.MonthlyExpenses = monthlyExpenses;
+            propertyInDb.DebtToIncome = Math.Round((monthlyExpenses / customer.MonthlyIncome) * 100, 2);
+            _context.SaveChanges();
+
             return View(indexCustomerViewModel);
         }
 
@@ -405,6 +416,11 @@ namespace SimplifiedMortgageRefi.Controllers
                 liabilitiesLoanProfiles.LiabilityId = liability.Id;
                 _context.Liabilities_LoanProfiles.Add(liabilitiesLoanProfiles);
             }
+
+            applicationInDb.Property.DebtToIncome = 
+
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(CreateLiabilities));
