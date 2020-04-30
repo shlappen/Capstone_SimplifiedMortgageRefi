@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SimplifiedMortgageRefi.Models.Customer>
+﻿@model IEnumerable<SimplifiedMortgageRefi.Models.Applications_Customers>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,10 +12,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Last Name
             </th>
             <th>
                 Credit Score
@@ -27,6 +27,9 @@
                 Debt-To-Income
             </th>
             <th>
+                Current Balance
+            </th>
+            <th>
                 Options
             </th>
         </tr>
@@ -34,29 +37,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreditScore)
-                </td>
-                <td>
-                    1
-                </td>
-                <td>
-                    2
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CreditScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Application.Property.LoanToValue)%
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Application.Property.DebtToIncome)%
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Application.Property.MortgageBalance)
+            </td>
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.ApplicationId">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.ApplicationId">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.ApplicationId">Delete</a>*@
+                <a asp-controller="Contacts" asp-action="Create" asp-route-id="@item.ApplicationId">Contact</a>
+                @*<a asp-action="Create" asp-route-id="Contacts/@item.ApplicationId">Contact</a>*@
+            </td>
+        </tr>
         }
     </tbody>
 </table>

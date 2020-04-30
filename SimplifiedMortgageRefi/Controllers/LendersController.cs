@@ -22,7 +22,9 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.Applications);
+            //var applicationDbContext = _context.Applications.Include(c => c.Property);
+            var applicationDbContext = _context.Applications_Customers.Include(a => a.Application.Property).Include(c => c.Customer);
+            int i = 0;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -43,6 +45,38 @@ namespace SimplifiedMortgageRefi.Controllers
             }
 
             return View(lender);
+        }
+
+        public async Task<IActionResult> CreateContact(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var lender = await _context.Applications
+                .Include(l => l.Customers)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (lender == null)
+            {
+                return NotFound();
+            }
+
+            return View(lender);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> CreateContact([Bind("Id,Result")] Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(contact);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(contact);
         }
 
         // GET: Lenders/Create
