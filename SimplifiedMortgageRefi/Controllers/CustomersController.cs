@@ -75,8 +75,7 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var customerInDb = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefaultAsync();
+
             CreateCustomerViewModel createCustomerViewModel = new CreateCustomerViewModel();
 
             ViewData["States"] = new SelectList(_context.States, "Id", "Name", "Select State");
@@ -218,6 +217,7 @@ namespace SimplifiedMortgageRefi.Controllers
                 propertyInDb.MonthlyPayment = Math.Round(monthlyPayment, 2);
 
                 var currentBalance = monthlyPayment * (1 - Math.Pow(1 + monthlyRate, -(monthsLeft))) / monthlyRate;
+                propertyInDb.MortgageBalance = Math.Round(currentBalance, 2);
                 double loanToValue = Math.Round((currentBalance / propertyInDb.AssessedValue) * 100, 2);
                 propertyInDb.LoanToValue = loanToValue;
 
@@ -403,6 +403,9 @@ namespace SimplifiedMortgageRefi.Controllers
         public async Task<IActionResult> CreateLiabilities(int id, [Bind("LenderName,Balance,Payment,IsConsolidated,LiabilityTypeId")] Liability liability)
         {
 
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+
             var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
             var loanProfiles = _context.LoanProfiles.Where(a => a.ApplicationId == id).ToList();
             liability.ApplicationId = id;
@@ -417,10 +420,6 @@ namespace SimplifiedMortgageRefi.Controllers
                 _context.Liabilities_LoanProfiles.Add(liabilitiesLoanProfiles);
             }
 
-            applicationInDb.Property.DebtToIncome = 
-
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(CreateLiabilities));

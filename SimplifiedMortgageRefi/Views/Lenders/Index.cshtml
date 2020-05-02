@@ -27,7 +27,7 @@
                 Debt-To-Income
             </th>
             <th>
-                Current Balance
+                Last Contacted
             </th>
             <th>
                 Options
@@ -54,7 +54,17 @@
                 @Html.DisplayFor(modelItem => item.Application.Property.DebtToIncome)%
             </td>
             <td>
-                $@Html.DisplayFor(modelItem => item.Application.Property.MortgageBalance)
+                @if (!item.Application.Contacts.Any())
+                {
+                    <text>No contact yet</text>
+
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Application.Contacts.Last().DateTime);
+
+
+                }
             </td>
 
             <td>

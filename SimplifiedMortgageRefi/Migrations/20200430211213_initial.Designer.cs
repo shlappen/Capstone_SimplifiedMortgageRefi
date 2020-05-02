@@ -10,8 +10,8 @@ using SimplifiedMortgageRefi.Data;
 namespace SimplifiedMortgageRefi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200424154331_RemovedNullabilityFromAssessedValue")]
-    partial class RemovedNullabilityFromAssessedValue
+    [Migration("20200430211213_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9b80326c-8db1-485b-b334-f19f19f8869f",
-                            ConcurrencyStamp = "1c79eb43-e9d5-4136-8943-de577748b4c9",
+                            Id = "37e953cf-c02b-4675-8fde-7dc2964f8f47",
+                            ConcurrencyStamp = "7268de9e-93ad-4c67-9a5b-0ad26a1a589f",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "b90c8048-ba81-4a34-9bf9-c73733835cc9",
-                            ConcurrencyStamp = "5f078478-37ac-4d62-8ce0-43750ef16d48",
+                            Id = "a4c3c161-a00a-4815-9ee4-b1041896f082",
+                            ConcurrencyStamp = "cc75b120-bfca-4bfb-aee8-f01069821c3e",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
@@ -396,6 +396,21 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.ToTable("Lenders");
                 });
 
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liabilities_LoanProfiles", b =>
+                {
+                    b.Property<int>("LiabilityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LoanProfileId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LiabilityId", "LoanProfileId");
+
+                    b.HasIndex("LoanProfileId");
+
+                    b.ToTable("Liabilities_LoanProfiles");
+                });
+
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liability", b =>
                 {
                     b.Property<int>("Id")
@@ -421,9 +436,6 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.Property<int>("LiabilityTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LoanProfileId")
-                        .HasColumnType("int");
-
                     b.Property<double>("Payment")
                         .HasColumnType("float");
 
@@ -432,8 +444,6 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.HasIndex("LiabilityTypeId");
-
-                    b.HasIndex("LoanProfileId");
 
                     b.ToTable("Liabilities");
                 });
@@ -451,6 +461,28 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LiabilityTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Credit Card"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Loan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Lease"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Mortgage"
+                        });
                 });
 
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.LoanProfile", b =>
@@ -559,6 +591,15 @@ namespace SimplifiedMortgageRefi.Migrations
 
                     b.Property<int>("AssessedValue")
                         .HasColumnType("int");
+
+                    b.Property<double>("DebtToIncome")
+                        .HasColumnType("float");
+
+                    b.Property<double>("LoanToValue")
+                        .HasColumnType("float");
+
+                    b.Property<double>("MonthlyExpenses")
+                        .HasColumnType("float");
 
                     b.Property<double>("MonthlyHOIPremium")
                         .HasColumnType("float");
@@ -1134,6 +1175,21 @@ namespace SimplifiedMortgageRefi.Migrations
                         .HasForeignKey("IdentityUserId");
                 });
 
+            modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liabilities_LoanProfiles", b =>
+                {
+                    b.HasOne("SimplifiedMortgageRefi.Models.Liability", "Liability")
+                        .WithMany("LoanProfiles")
+                        .HasForeignKey("LiabilityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SimplifiedMortgageRefi.Models.LoanProfile", "LoanProfile")
+                        .WithMany("Liabilities")
+                        .HasForeignKey("LoanProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("SimplifiedMortgageRefi.Models.Liability", b =>
                 {
                     b.HasOne("SimplifiedMortgageRefi.Models.Application", "Application")
@@ -1146,12 +1202,6 @@ namespace SimplifiedMortgageRefi.Migrations
                         .WithMany()
                         .HasForeignKey("LiabilityTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SimplifiedMortgageRefi.Models.LoanProfile", "LoanProfile")
-                        .WithMany("Liabilities")
-                        .HasForeignKey("LoanProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

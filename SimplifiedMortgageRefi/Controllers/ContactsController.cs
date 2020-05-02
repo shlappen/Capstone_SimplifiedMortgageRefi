@@ -42,7 +42,7 @@ namespace SimplifiedMortgageRefi.Controllers
             ContactCustomerViewModel contactCustomerViewModel = new ContactCustomerViewModel();
             contactCustomerViewModel.Application = await _context.Applications.FirstOrDefaultAsync(m => m.Id == id);
             contactCustomerViewModel.Customers = _context.Customers.Where(c => c.Id == contactCustomerViewModel.Application.Id).ToList();
-
+            contactCustomerViewModel.Contacts = _context.Contacts.Where(c => c.ApplicationId == contactCustomerViewModel.Application.Id).ToList();
 
             if (contactCustomerViewModel.Application == null)
             {
@@ -67,7 +67,7 @@ namespace SimplifiedMortgageRefi.Controllers
                 contact.DateTime = DateTime.Now;
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             return View(contact);
         }

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<SimplifiedMortgageRefi.Models.LoanProfile>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_CustomerDashboard.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Term)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Originator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCashOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCurrentMortgage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DebtToIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanToValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Term)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Originator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Application.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCashOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCurrentMortgage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DebtToIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanToValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

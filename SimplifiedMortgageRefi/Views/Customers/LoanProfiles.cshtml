@@ -129,7 +129,42 @@ else
 
             </div>
         </div>
+
+
+        @foreach (var item in Model.Liabilities)
+        {
+
+            <div class="mb-4 mt-0">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Lender</div>
+                                <div class="h5 mb-0 text-gray-800">@item.LenderName</div>
+                            </div>
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Balance</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@item.Balance</div>
+                            </div>
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Payment</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@item.Payment</div>
+                            </div>
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Consolidate</div>
+                                
+                                    <input type="checkbox" class="savings" value="@item.Payment" onclick="calculateSavings();" />
+                            </div>
+                            @*<div class="col-auto">
+            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+        </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 }
+
 
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,7 +24,10 @@ namespace SimplifiedMortgageRefi.Controllers
         public async Task<IActionResult> Index()
         {
             //var applicationDbContext = _context.Applications.Include(c => c.Property);
-            var applicationDbContext = _context.Applications_Customers.Include(a => a.Application.Property).Include(c => c.Customer);
+            var applicationDbContext = _context.Applications_Customers
+                .Include(a => a.Application.Property)
+                .Include(a => a.Application.Contacts)
+                .Include(c => c.Customer);
             int i = 0;
             return View(await applicationDbContext.ToListAsync());
         }
@@ -94,11 +98,12 @@ namespace SimplifiedMortgageRefi.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                lender.IdentityUserId = userId;
                 _context.Add(lender);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", lender.IdentityUserId);
             return View(lender);
         }
 

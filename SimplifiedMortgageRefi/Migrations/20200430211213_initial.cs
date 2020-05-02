@@ -227,7 +227,8 @@ namespace SimplifiedMortgageRefi.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     IdentityUserId = table.Column<string>(nullable: true),
-                    MonthlyIncome = table.Column<double>(nullable: false)
+                    MonthlyIncome = table.Column<double>(nullable: false),
+                    CreditScore = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -289,7 +290,10 @@ namespace SimplifiedMortgageRefi.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AddressId = table.Column<int>(nullable: false),
-                    AssessedValue = table.Column<int>(nullable: true),
+                    AssessedValue = table.Column<int>(nullable: false),
+                    LoanToValue = table.Column<double>(nullable: false),
+                    DebtToIncome = table.Column<double>(nullable: false),
+                    MonthlyExpenses = table.Column<double>(nullable: false),
                     MortgageBalance = table.Column<double>(nullable: false),
                     OriginalMortgageBalance = table.Column<double>(nullable: false),
                     MonthlyPayment = table.Column<double>(nullable: false),
@@ -423,6 +427,37 @@ namespace SimplifiedMortgageRefi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Liabilities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LenderName = table.Column<string>(nullable: true),
+                    Balance = table.Column<double>(nullable: false),
+                    Payment = table.Column<double>(nullable: false),
+                    IsIncludedOnApp = table.Column<bool>(nullable: false),
+                    IsConsolidated = table.Column<bool>(nullable: false),
+                    ApplicationId = table.Column<int>(nullable: false),
+                    LiabilityTypeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Liabilities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Liabilities_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Applications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Liabilities_LiabilityTypes_LiabilityTypeId",
+                        column: x => x.LiabilityTypeId,
+                        principalTable: "LiabilityTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LoanProfiles",
                 columns: table => new
                 {
@@ -433,7 +468,6 @@ namespace SimplifiedMortgageRefi.Migrations
                     Rate = table.Column<double>(nullable: false),
                     LoanAmount = table.Column<double>(nullable: false),
                     EstimatedValue = table.Column<int>(nullable: false),
-                    CreditScore = table.Column<int>(nullable: false),
                     ApplicationId = table.Column<int>(nullable: false),
                     IsCashOut = table.Column<bool>(nullable: false),
                     ClosingCost = table.Column<double>(nullable: false),
@@ -460,37 +494,23 @@ namespace SimplifiedMortgageRefi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Liabilities",
+                name: "Liabilities_LoanProfiles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LenderName = table.Column<string>(nullable: true),
-                    Balance = table.Column<double>(nullable: false),
-                    Payment = table.Column<double>(nullable: false),
-                    IsIncludedOnApp = table.Column<bool>(nullable: false),
-                    IsConsolidated = table.Column<bool>(nullable: false),
-                    ApplicationId = table.Column<int>(nullable: false),
-                    LoanProfileId = table.Column<int>(nullable: false),
-                    LiabilityTypeId = table.Column<int>(nullable: false)
+                    LiabilityId = table.Column<int>(nullable: false),
+                    LoanProfileId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Liabilities", x => x.Id);
+                    table.PrimaryKey("PK_Liabilities_LoanProfiles", x => new { x.LiabilityId, x.LoanProfileId });
                     table.ForeignKey(
-                        name: "FK_Liabilities_Applications_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "Applications",
+                        name: "FK_Liabilities_LoanProfiles_Liabilities_LiabilityId",
+                        column: x => x.LiabilityId,
+                        principalTable: "Liabilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Liabilities_LiabilityTypes_LiabilityTypeId",
-                        column: x => x.LiabilityTypeId,
-                        principalTable: "LiabilityTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Liabilities_LoanProfiles_LoanProfileId",
+                        name: "FK_Liabilities_LoanProfiles_LoanProfiles_LoanProfileId",
                         column: x => x.LoanProfileId,
                         principalTable: "LoanProfiles",
                         principalColumn: "Id",
@@ -502,8 +522,19 @@ namespace SimplifiedMortgageRefi.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "ae150da3-c3de-464e-a197-3a097db20d81", "6c0b1a81-d11a-45da-82ae-23c634d1c257", "Customer", "CUSTOMER" },
-                    { "1320a4c8-e25d-4b3e-8744-f36b8138b662", "f8bf3f7c-9bc3-4aa5-b22b-b3f8b3c1e7b2", "Lender", "LENDER" }
+                    { "37e953cf-c02b-4675-8fde-7dc2964f8f47", "7268de9e-93ad-4c67-9a5b-0ad26a1a589f", "Customer", "CUSTOMER" },
+                    { "a4c3c161-a00a-4815-9ee4-b1041896f082", "cc75b120-bfca-4bfb-aee8-f01069821c3e", "Lender", "LENDER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "LiabilityTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Credit Card" },
+                    { 2, "Loan" },
+                    { 3, "Lease" },
+                    { 4, "Mortgage" }
                 });
 
             migrationBuilder.InsertData(
@@ -523,11 +554,11 @@ namespace SimplifiedMortgageRefi.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Single Family" },
-                    { 2, "Condominium" },
-                    { 3, "Townhouse" },
                     { 4, "Multi-Family" },
-                    { 5, "Other" }
+                    { 3, "Townhouse" },
+                    { 5, "Other" },
+                    { 1, "Single Family" },
+                    { 2, "Condominium" }
                 });
 
             migrationBuilder.InsertData(
@@ -535,10 +566,10 @@ namespace SimplifiedMortgageRefi.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 4, "other" },
-                    { 3, "shorten my term" },
+                    { 1, "lower my rate and payment" },
                     { 2, "tap into my equity" },
-                    { 1, "lower my rate and payment" }
+                    { 3, "shorten my term" },
+                    { 4, "other" }
                 });
 
             migrationBuilder.InsertData(
@@ -546,31 +577,31 @@ namespace SimplifiedMortgageRefi.Migrations
                 columns: new[] { "Id", "Abbreviation", "Name" },
                 values: new object[,]
                 {
-                    { 28, "NE", "Nebraska" },
-                    { 29, "NV", "Nevada" },
+                    { 36, "OH", "Ohio" },
+                    { 35, "ND", "North Dakota" },
+                    { 34, "NC", "North Carolina" },
+                    { 33, "NY", "New York" },
                     { 30, "NH", "New Hampshire" },
                     { 31, "NJ", "New Jersey" },
-                    { 32, "NM", "New Mexico" },
-                    { 33, "NY", "New York" },
-                    { 34, "NC", "North Carolina" },
-                    { 35, "ND", "North Dakota" },
-                    { 36, "OH", "Ohio" },
+                    { 29, "NV", "Nevada" },
+                    { 28, "NE", "Nebraska" },
                     { 37, "OK", "Oklahoma" },
+                    { 32, "NM", "New Mexico" },
                     { 38, "OR", "Oregon" },
-                    { 46, "VT", "Vermont" },
+                    { 48, "WA", "Washington" },
                     { 40, "RH", "Rhode Island" },
                     { 41, "SC", "South Carolina" },
                     { 42, "SD", "South Dakota" },
                     { 43, "TN", "Tennessee" },
                     { 44, "TX", "Texas" },
                     { 45, "UT", "Utah" },
-                    { 27, "MT", "Montana" },
+                    { 46, "VT", "Vermont" },
                     { 47, "VA", "Virginia" },
-                    { 48, "WA", "Washington" },
+                    { 27, "MT", "Montana" },
                     { 49, "WV", "West Virginia" },
                     { 39, "PA", "Pennsylvania" },
                     { 26, "MO", "Missouri" },
-                    { 18, "KY", "Kentucky" },
+                    { 16, "IA", "Iowa" },
                     { 24, "MN", "Minnesota" },
                     { 1, "AL", "Alabama" },
                     { 2, "AK", "Alaska" },
@@ -587,9 +618,9 @@ namespace SimplifiedMortgageRefi.Migrations
                     { 13, "ID", "Idaho" },
                     { 14, "IL", "Illinois" },
                     { 15, "IN", "Indiana" },
-                    { 16, "IA", "Iowa" },
-                    { 17, "KS", "Kansas" },
                     { 50, "WI", "Wisconsin" },
+                    { 17, "KS", "Kansas" },
+                    { 18, "KY", "Kentucky" },
                     { 19, "LA", "Louisiana" },
                     { 20, "ME", "Maine" },
                     { 21, "MD", "Maryland" },
@@ -684,8 +715,8 @@ namespace SimplifiedMortgageRefi.Migrations
                 column: "LiabilityTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Liabilities_LoanProfileId",
-                table: "Liabilities",
+                name: "IX_Liabilities_LoanProfiles_LoanProfileId",
+                table: "Liabilities_LoanProfiles",
                 column: "LoanProfileId");
 
             migrationBuilder.CreateIndex(
@@ -741,7 +772,7 @@ namespace SimplifiedMortgageRefi.Migrations
                 name: "Customers_Properties");
 
             migrationBuilder.DropTable(
-                name: "Liabilities");
+                name: "Liabilities_LoanProfiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -753,13 +784,16 @@ namespace SimplifiedMortgageRefi.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "LiabilityTypes");
+                name: "Liabilities");
 
             migrationBuilder.DropTable(
                 name: "LoanProfiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LiabilityTypes");
 
             migrationBuilder.DropTable(
                 name: "Applications");
