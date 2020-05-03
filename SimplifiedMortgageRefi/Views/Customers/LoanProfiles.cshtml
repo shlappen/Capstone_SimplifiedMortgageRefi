@@ -5,10 +5,16 @@
     <div class="col-xl-4 col-lg-4">
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-warning">Refinance Option 1 Details</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#mtgDetails" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                        @*<i class="fas fa-angle-double-up text-success"></i>*@
+                        <i class="fas fa-angle-double-down text-warning"></i>
+                    </a>
+                </div>
             </div>
-            <div class="p-3">
+            <div class="p-3 collapse" id="mtgDetails">
                 <form class="user" asp-action="EditLoanProfile">
                     <input type="hidden" asp-for="LoanProfiles.FirstOrDefault().Id" />
                     <div class="col-md-12">
@@ -58,10 +64,17 @@ else
     <div class="col-xl-4 col-lg-4">
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-warning">Refinance Option 1 Details</h6>
+
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#mtgDetails" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                        @*<i class="fas fa-angle-double-up text-success"></i>*@
+                        <i class="fas fa-angle-double-down text-warning"></i>
+                    </a>
+                </div>
             </div>
-            <div class="p-3">
+            <div class="p-3 collapse" id="mtgDetails">
                 <input type="hidden" asp-for="LoanProfiles.FirstOrDefault().Id" />
                 <div class="col-md-12">
                     <div class="form-group row">
@@ -153,7 +166,7 @@ else
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Consolidate</div>
                                 
-                                    <input type="checkbox" class="savings" value="@item.Payment" onclick="calculateSavings();" />
+                                    <input type="checkbox" class="savings" value="@item.Payment" onchange="calculateSavings();" />
                             </div>
                             @*<div class="col-auto">
             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

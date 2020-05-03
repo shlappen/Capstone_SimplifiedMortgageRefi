@@ -5,10 +5,16 @@
     <div class="col-xl-4 col-lg-4">
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-success">Refinance Option 2 Details</h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#refi2Details" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                        @*<i class="fas fa-angle-double-up text-success"></i>*@
+                        <i class="fas fa-angle-double-down text-success"></i>
+                    </a>
+                </div>
             </div>
-            <div class="p-3">
+            <div class="p-3 collapse" id="refi2Details">
                 <form class="user" asp-action="CreateLoanProfile">
                     <input type="hidden" asp-for="Application.Id" />
                     <div class="col-md-12">
@@ -54,81 +60,119 @@
 else
 {
 
-    <div class="col-xl-4 col-lg-4">
-        <!-- Project Card Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-success">Refinance Option 2 Details</h6>
-            </div>
-            <div class="p-3">
-                <input type="hidden" asp-for="LoanProfiles.Last().Id" />
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Total Loan Cost</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="totalpayment2"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Principal Balance</label>
-                        <div class="col-sm-7">
-                            $@Html.DisplayFor(Model => Model.LoanProfiles.Last().LoanAmount)
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Total Interest</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="totalinterest2"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
-                        <div class="col-sm-7">
-                            <span class="output" id="monthlypayment2"></span>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-
-
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Rate</label>
-                        <div class="col-sm-7">
-                            @Html.DisplayFor(Model => Model.LoanProfiles.Last().Rate)%
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Term (years)</label>
-                        <div class="col-sm-7">
-                            @Html.DisplayFor(Model => Model.LoanProfiles.Last().Term)
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Closing Costs Not Financed (Paid At Close)</label>
-                        <div class="col-sm-7">
-                            $@Html.DisplayFor(Model => Model.LoanProfiles.Last().ClosingCost)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row p-3">
-                    <input type="submit" value="Edit" class="btn btn-primary btn-block" />
-                </div>
-
+<div class="col-xl-4 col-lg-4">
+    <!-- Project Card Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-success">Refinance Option 2 Details</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#refi2Details" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                    @*<i class="fas fa-angle-double-up text-success"></i>*@
+                    <i class="fas fa-angle-double-down text-success"></i>
+                </a>
             </div>
         </div>
+        <div class="p-3 collapse" id="refi2Details">
+            <input type="hidden" asp-for="LoanProfiles.Last().Id" />
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Total Loan Cost</label>
+                    <div class="col-sm-7">
+                        <span class="output" id="totalpayment2"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Principal Balance</label>
+                    <div class="col-sm-7">
+                        $@Html.DisplayFor(Model => Model.LoanProfiles.Last().LoanAmount)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Total Interest</label>
+                    <div class="col-sm-7">
+                        <span class="output" id="totalinterest2"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
+                    <div class="col-sm-7">
+                        <span class="output" id="monthlypayment2"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+
+
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Rate</label>
+                    <div class="col-sm-7">
+                        @Html.DisplayFor(Model => Model.LoanProfiles.Last().Rate)%
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Term (years)</label>
+                    <div class="col-sm-7">
+                        @Html.DisplayFor(Model => Model.LoanProfiles.Last().Term)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Closing Costs Not Financed (Paid At Close)</label>
+                    <div class="col-sm-7">
+                        $@Html.DisplayFor(Model => Model.LoanProfiles.Last().ClosingCost)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row p-3">
+                <input type="submit" value="Edit" class="btn btn-primary btn-block" />
+            </div>
+
+        </div>
     </div>
+    @foreach (var item in Model.Liabilities)
+    {
+
+        <div class="mb-4 mt-0">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Lender</div>
+                            <div class="h5 mb-0 text-gray-800">@item.LenderName</div>
+                        </div>
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Balance</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@item.Balance</div>
+                        </div>
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Payment</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@item.Payment</div>
+                        </div>
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Consolidate</div>
+
+                            <input type="checkbox" class="savings2" value="@item.Payment" onchange="calculateSavings();" />
+                        </div>
+                        @*<div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 }
 
 

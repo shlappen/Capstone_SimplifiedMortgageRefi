@@ -218,10 +218,16 @@
         <!-- Current Mortgage Details -->
         <div class="col-xl-4 col-lg-4">
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Current Mortgage Details</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#currentMtgDetails" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                            @*<i class="fas fa-angle-double-up text-success"></i>*@
+                            <i class="fas fa-angle-double-down text-primary"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="p-3">
+                <div class="p-3 collapse" id="currentMtgDetails">
                     <form class="user">
                         @*<div class="row">
                                 <div class="col-md-4">
@@ -628,22 +634,43 @@
         var opt1Savings = monthlyPayment - monthly;
         var opt2Savings = monthlyPayment - monthly2;
         console.log(opt1Savings);
+
         function calculateSavings() {
             var savings = document.getElementsByClassName("savings");
-            console.log(savings);
+            var savings2 = document.getElementsByClassName("savings2");
+
+            var newOpt1Savings = 0;
+            var newOpt2Savings = 0;
             var i;
+
             for (i = 0; i < savings.length; i++) {
-                if (savings[i].checked) {
-                    console.log(savings[i].checked);
-                    console.log(savings[i].value);
-                    opt1Savings = opt1Savings + parseInt(savings[i].value);
-                    console.log(opt1Savings)
+                if (!savings[i].checked) {
+                    newOpt1Savings += 0;
 
                 }
+                else if (savings[i].checked) {
+                    console.log(savings[i].checked);
+                    console.log(savings[i].value);
+
+                    newOpt1Savings += parseInt(savings[i].value);
+                    console.log(newOpt1Savings);
+                    
+                }
+                if (!savings2[i].checked) {
+                    newOpt2Savings += 0;
+                }
+                else if (savings2[i].checked) {
+                    newOpt2Savings += parseInt(savings2[i].value);
+                }
+                updateChart(myChart, newOpt1Savings, newOpt2Savings);
             }
         }
 
-        function updateChart() {
+
+        function updateChart(chart, newOpt1Savings, newOpt2Savings) {
+            opt1Savings = monthlyPayment - monthly;
+            opt2Savings = monthlyPayment - monthly2;
+            chart.data.datasets[0].data = [(opt1Savings + newOpt1Savings).toFixed(2), (opt2Savings + newOpt2Savings).toFixed(2)]
             chart.update();
         }
 
@@ -654,7 +681,7 @@
                 labels: ["Option 1: " + @Model.LoanProfiles.FirstOrDefault().Term + " year at " + @Model.LoanProfiles.FirstOrDefault().Rate + "%", option2],
                 datasets: [{
                     label: 'Monthly Savings',
-                    data: [opt1Savings, opt2Savings.toFixed(2)],
+                    data: [opt1Savings.toFixed(2), opt2Savings.toFixed(2)],
                     backgroundColor: [
                         //'rgba(255, 99, 132, 0.2)',
                         //'rgba(54, 162, 235, 0.2)',
@@ -708,7 +735,7 @@
     maxLoanAmount.innerHTML = "$" + addCommas((maxLoan.toFixed(0)));
     };
     currentDTI.innerHTML = @Model.Property.DebtToIncome + "%";
-        document.getElementById("currentDTIBar").style.width = @Model.Property.DebtToIncome;
+        document.getElementById("currentDTIBar").style.width = @Model.Property.DebtToIncome + "%";
 
     currentDebtTotal.innerHTML = "$" + addCommas(@Model.Property.MonthlyExpenses)
     currentDebtCeiling.innerHTML = "$" + addCommas((@Model.Customer.MonthlyIncome * .43).toFixed(2));
