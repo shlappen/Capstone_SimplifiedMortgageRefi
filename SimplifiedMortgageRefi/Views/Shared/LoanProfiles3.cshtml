@@ -1,20 +1,19 @@
-﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel
+﻿@model SimplifiedMortgageRefi.ViewModels.ContactCustomerViewModel
 
 @if (Model.LoanProfiles.First().Id == Model.LoanProfiles.Last().Id)
 {
-    <div class="col-xl-4 col-lg-4">
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-success">Refinance Option 2 Details</h6>
+                <h6 class="m-0 font-weight-bold text-danger">Refinance Option 3 Details</h6>
                 <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#refi2Details" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
-                        @*<i class="fas fa-angle-double-up text-success"></i>*@
-                        <i class="fas fa-angle-double-down text-success"></i>
+                    <a class="dropdown-toggle" href="#refi3Details" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                        @*<i class="fas fa-angle-double-up text-danger"></i>*@
+                        <i class="fas fa-angle-double-down text-danger"></i>
                     </a>
                 </div>
             </div>
-            <div class="p-3 collapse" id="refi2Details">
+            <div class="p-3 collapse" id="refi3Details">
                 <form class="user" asp-action="CreateLoanProfile">
                     <input type="hidden" asp-for="Application.Id" />
                     <div class="col-md-12">
@@ -55,30 +54,28 @@
                 </form>
             </div>
         </div>
-    </div>
 }
 else
 {
 
-<div class="col-xl-4 col-lg-4">
     <!-- Project Card Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-success">Refinance Option 2 Details</h6>
+            <h6 class="m-0 font-weight-bold text-danger">Refinance Option 3 Details</h6>
             <div class="dropdown no-arrow">
-                <a class="dropdown-toggle" href="#refi2Details" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
-                    @*<i class="fas fa-angle-double-up text-success"></i>*@
-                    <i class="fas fa-angle-double-down text-success"></i>
+                <a class="dropdown-toggle" href="#refi3Details" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                    @*<i class="fas fa-angle-double-up text-danger"></i>*@
+                    <i class="fas fa-angle-double-down text-danger"></i>
                 </a>
             </div>
         </div>
-        <div class="p-3 collapse" id="refi2Details">
+        <div class="p-3 collapse" id="refi3Details">
             <input type="hidden" asp-for="LoanProfiles.Last().Id" />
             <div class="col-md-12">
                 <div class="form-group row">
                     <label class="col-sm-5 col-form-label">Total Loan Cost</label>
                     <div class="col-sm-7">
-                        <span class="output" id="totalpayment2"></span>
+                        <span class="output" id="totalpayment3"></span>
                     </div>
                 </div>
             </div>
@@ -94,7 +91,7 @@ else
                 <div class="form-group row">
                     <label class="col-sm-5 col-form-label">Total Interest</label>
                     <div class="col-sm-7">
-                        <span class="output" id="totalinterest2"></span>
+                        <span class="output" id="totalinterest3"></span>
                     </div>
                 </div>
             </div>
@@ -103,7 +100,7 @@ else
                 <div class="form-group row">
                     <label class="col-sm-5 col-form-label">Monthly Payment (Principal & Interest)</label>
                     <div class="col-sm-7">
-                        <span class="output" id="monthlypayment2"></span>
+                        <span class="output" id="monthlypayment3"></span>
                     </div>
                 </div>
             </div>
@@ -140,29 +137,30 @@ else
 
         </div>
     </div>
+
     @foreach (var item in Model.Liabilities)
     {
 
         <div class="mb-4 mt-0">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Lender</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Lender</div>
                             <div class="h5 mb-0 text-gray-800">@item.LenderName</div>
                         </div>
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Balance</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Balance</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@item.Balance</div>
                         </div>
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Payment</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Payment</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@item.Payment</div>
                         </div>
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Consolidate</div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Consolidate</div>
 
-                            <input type="checkbox" class="savings2" value="@item.Payment" onchange="calculateSavings();" />
+                            <input type="checkbox" class="savings3" value="@item.Payment" onchange="calculateSavings();" />
                         </div>
                         @*<div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -172,7 +170,6 @@ else
             </div>
         </div>
     }
-</div>
 }
 
 

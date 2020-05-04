@@ -1,4 +1,4 @@
-﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel
+﻿@model SimplifiedMortgageRefi.ViewModels.ContactCustomerViewModel
 @using System.Linq
 
 @{
@@ -12,7 +12,6 @@
 <!-- End of Topbar -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h2 class="h3 mb-0 text-gray-800">Dashboard</h2>
@@ -109,7 +108,7 @@
             </div>
         </div>
 
-        <div class="col-xl-5 col-lg-5">
+        <div class="col-xl-6 col-lg-6">
             <!-- Nice Bar Chart -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -117,7 +116,7 @@
                 </div>
                 <div class="card-body">
                     <div class="chart-bar">
-                        <canvas id="myChart" class="col-md-12"></canvas>
+                        <canvas id="myChart" class="col-md-10"></canvas>
                     </div>
                 </div>
             </div>
@@ -127,7 +126,7 @@
 
     <!-- Content Row -->
     <div class="row">
-        <!-- Pie Chart -->
+        <!-- Current Mortgage Pie Chart -->
         <div class="col-xl-4 col-lg-4">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
@@ -153,70 +152,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-4 col-lg-4">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-warning">Refi Option 1 Costs: </h6>
-                    @*<div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>*@
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#piechart" role="button" data-toggle="collapse" aria-expanded="true">
-                            <i class="fas fa-angle-double-down text-warning show" id="arrow"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="collapse" id="piechart">
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2">
-                            <canvas id="labelChart1"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-4">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-success">Refi Option 2 Costs: </h6>
-                    @*<div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>*@
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
-                            @*<i class="fas fa-angle-double-up text-success"></i>*@
-                            <i class="fas fa-angle-double-down text-success"></i>
-                        </a>
-                    </div>
-                </div>
-                <!-- Card Body -->
-                <div class="collapse" id="piechart">
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2">
-                            <canvas id="labelChart2"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <!-- Current Mortgage Details -->
-        <div class="col-xl-4 col-lg-4">
+
+
+            <!-- Current Mortgage Details -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Current Mortgage Details</h6>
@@ -227,6 +166,7 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="p-3 collapse" id="currentMtgDetails">
                     <form class="user">
                         @*<div class="row">
@@ -305,8 +245,7 @@
                                 </div>
                             </div>
                         </div>
-                        @*</div>*@
-                        @*<div class="row">*@
+
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Term (years)</label>
@@ -332,8 +271,7 @@
                                 </div>
                             </div>
                         </div>
-                        @*</div>*@
-                        @*<div class="row">*@
+
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Taxes (monthly)</label>
@@ -358,26 +296,110 @@
             </div>
         </div>
 
-            <partial name="LoanProfiles" />
+        <div class="multiple-items col-xl-8 col-lg-8">
+            <div class="col-xl-6 col-lg-6">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-warning">Refi Option 1 Costs: </h6>
+                        @*<div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>*@
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#piechart" role="button" data-toggle="collapse" aria-expanded="true">
+                                <i class="fas fa-angle-double-down text-warning show" id="arrow"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="collapse" id="piechart">
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="labelChart1"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <partial name="LoanProfiles" />
+
+            </div>
+
+            <!-- Refi Option 2 Pie Chart -->
+            <div class="col-xl-6 col-lg-6">
+
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-success">Refi Option 2 Costs: </h6>
+                        @*<div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>*@
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                                @*<i class="fas fa-angle-double-up text-success"></i>*@
+                                <i class="fas fa-angle-double-down text-success"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="collapse" id="piechart">
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="labelChart2"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <partial name="LoanProfiles2" />
+
+            </div>
+
+            <!-- Refi Option 3 Pie Chart -->
+            <div class="col-xl-6 col-lg-6">
+
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-danger">Refi Option 3 Costs: </h6>
+                        @*<div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>*@
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#piechart" role="button" id="dropdownMenuLink" data-toggle="collapse" aria-haspopup="true" aria-expanded="true">
+                                @*<i class="fas fa-angle-double-up text-success"></i>*@
+                                <i class="fas fa-angle-double-down text-danger"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="collapse" id="piechart">
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="labelChart3"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-        <partial name="LoanProfiles2" />
+                <partial name="LoanProfiles3" />
+
+            </div>
+        </div>
     </div>
-
-
-
-    <div class="col-lg-6 mb-4">
-
-
-
-
-
-
-
-    </div>
-
-
 </div>
+
 
 
 @{
@@ -388,17 +410,10 @@
 <script src="~/theme/lib/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="~/theme/vendor/chart.js/Chart.min.js"></script>
 <script src="~/theme/js/demo/chartjs-datalabels.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="~/js/site.js"></script>
+
 <script async defer type="text/javascript">
-
-
-    $("#editCurrentMortgage").click(function () {
-    $.get('@Url.Action("EditCurrentMortgage","Customers")', {}, function (response) {
-        $("#Display").html(response);
-    });
-});
-
-
 
 
     //<-- Current Mortgage Calc -->//
@@ -654,7 +669,7 @@
 
                     newOpt1Savings += parseInt(savings[i].value);
                     console.log(newOpt1Savings);
-                    
+
                 }
                 if (savings2[i] != undefined) {
                     if (!savings2[i].checked) {

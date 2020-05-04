@@ -24,21 +24,21 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
+            ContactCustomerViewModel viewModel = new ContactCustomerViewModel();
             
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
 
-            indexCustomerViewModel.Customer = customer;
+            viewModel.Customer = customer;
             var application = await _context.Applications_Customers.Where(c => c.CustomerId == customer.Id).Select(d => d.Application).FirstOrDefaultAsync();
             var loanProfiles = await _context.LoanProfiles.Where(c => c.ApplicationId == application.Id).ToListAsync();
             var propertyInDb = await _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefaultAsync();
             var liabilities = await _context.Liabilities.Where(l => l.ApplicationId == application.Id).ToListAsync();
 
-            indexCustomerViewModel.Property = propertyInDb;
-            indexCustomerViewModel.Application = application;
-            indexCustomerViewModel.LoanProfiles = loanProfiles;
-            indexCustomerViewModel.Liabilities = liabilities;
+            viewModel.Property = propertyInDb;
+            viewModel.Application = application;
+            viewModel.LoanProfiles = loanProfiles;
+            viewModel.Liabilities = liabilities;
 
             double liabilityTotal = 0;
             foreach(var item in liabilities)
@@ -50,7 +50,7 @@ namespace SimplifiedMortgageRefi.Controllers
             propertyInDb.DebtToIncome = Math.Round((monthlyExpenses / customer.MonthlyIncome) * 100, 2);
             _context.SaveChanges();
 
-            return View(indexCustomerViewModel);
+            return View(viewModel);
         }
 
         // GET: Customers/Details/5
@@ -378,24 +378,24 @@ namespace SimplifiedMortgageRefi.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
 
-            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
+            ContactCustomerViewModel viewModel = new ContactCustomerViewModel();
 
 
             var applicationInDb = _context.Applications.Where(c => c.Id == id).SingleOrDefault();
             var liabilities = _context.Liabilities.Where(l => l.ApplicationId == id).ToList();
-            indexCustomerViewModel.Liabilities = liabilities;
+            viewModel.Liabilities = liabilities;
 
             if(!liabilities.Any())
             {
                 applicationInDb.Liabilities = null;
             }
             Liability newLiability = new Liability();
-            indexCustomerViewModel.Application = applicationInDb;
-            indexCustomerViewModel.Liability = newLiability;
-            indexCustomerViewModel.Customer = customer;
+            viewModel.Application = applicationInDb;
+            viewModel.Liability = newLiability;
+            viewModel.Customer = customer;
             ViewData["LiabilityTypes"] = new SelectList(_context.LiabilityTypes, "Id", "Name");
 
-            return View(indexCustomerViewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -431,16 +431,16 @@ namespace SimplifiedMortgageRefi.Controllers
             {
                 return NotFound();
             }
-            IndexCustomerViewModel indexCustomerViewModel = new IndexCustomerViewModel();
+            ContactCustomerViewModel viewModel = new ContactCustomerViewModel();
             var application = await _context.Applications.FindAsync(id);
             var liabilities = await _context.Liabilities.Where(a => a.ApplicationId == application.Id).ToListAsync();
             if (application == null)
             {
                 return NotFound();
             }
-            indexCustomerViewModel.Application = application;
-            indexCustomerViewModel.Application.Liabilities = liabilities;
-            return View(indexCustomerViewModel);
+            viewModel.Application = application;
+            viewModel.Application.Liabilities = liabilities;
+            return View(viewModel);
         }
 
 

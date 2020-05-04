@@ -18,6 +18,7 @@ $(document).ready(function () {
 	$('#myTable').DataTable();
 });
 
+
 $('.multiple-items').slick({
 	arrows: true,
 	infinite: true,
