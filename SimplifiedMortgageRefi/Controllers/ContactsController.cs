@@ -39,14 +39,21 @@ namespace SimplifiedMortgageRefi.Controllers
             {
                 return NotFound();
             }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var lender = _context.Lenders.Where(c => c.IdentityUserId == userId).FirstOrDefault();
+
             ContactCustomerViewModel contactCustomerViewModel = new ContactCustomerViewModel();
-            contactCustomerViewModel.Application = await _context.Applications.FirstOrDefaultAsync(m => m.Id == id);
+            contactCustomerViewModel.Lender = lender;
+            contactCustomerViewModel.Application = await _context.Applications.Include(a => a.Property).Include(a => a.Liabilities).Include(a => a.LoanProfiles).FirstOrDefaultAsync(m => m.Id == id);
             contactCustomerViewModel.Customers = _context.Customers.Where(c => c.Id == contactCustomerViewModel.Application.Id).ToList();
             contactCustomerViewModel.Contacts = _context.Contacts.Where(c => c.ApplicationId == contactCustomerViewModel.Application.Id).ToList();
-
+            contactCustomerViewModel.Customer = contactCustomerViewModel.Customers.FirstOrDefault();
+            contactCustomerViewModel.Property = contactCustomerViewModel.Application.Property;
+            contactCustomerViewModel.Liabilities = contactCustomerViewModel.Application.Liabilities.ToList();
+            contactCustomerViewModel.LoanProfiles = contactCustomerViewModel.Application.LoanProfiles.ToList();
             if (contactCustomerViewModel.Application == null)
             {
-                return NotFound();
+                return NotFound(); 
             }
 
             return View(contactCustomerViewModel);

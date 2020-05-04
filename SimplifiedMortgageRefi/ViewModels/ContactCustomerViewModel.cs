@@ -14,5 +14,13 @@ namespace SimplifiedMortgageRefi.ViewModels
 
         public List<Contact> Contacts { get; set; }
         public Contact Contact { get; set; }
+        public Customer Customer { get; set; }
+        public Lender Lender { get; set; }
+
+        public Property Property { get; set; }
+        public IEnumerable<LoanProfile> LoanProfiles { get; set; }
+
+        public IEnumerable<Liability> Liabilities { get; set; }
+        public Liability Liability { get; set; }
     }
 }

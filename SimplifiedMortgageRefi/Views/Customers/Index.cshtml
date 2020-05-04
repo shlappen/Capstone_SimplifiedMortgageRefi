@@ -656,12 +656,15 @@
                     console.log(newOpt1Savings);
                     
                 }
-                if (!savings2[i].checked) {
-                    newOpt2Savings += 0;
+                if (savings2[i] != undefined) {
+                    if (!savings2[i].checked) {
+                        newOpt2Savings += 0;
+                    }
+                    else if (savings2[i].checked) {
+                        newOpt2Savings += parseInt(savings2[i].value);
+                    }
                 }
-                else if (savings2[i].checked) {
-                    newOpt2Savings += parseInt(savings2[i].value);
-                }
+
                 updateChart(myChart, newOpt1Savings, newOpt2Savings);
             }
         }
@@ -737,7 +740,7 @@
     currentDTI.innerHTML = @Model.Property.DebtToIncome + "%";
         document.getElementById("currentDTIBar").style.width = @Model.Property.DebtToIncome + "%";
 
-    currentDebtTotal.innerHTML = "$" + addCommas(@Model.Property.MonthlyExpenses)
+    currentDebtTotal.innerHTML = "$" + addCommas((@Model.Property.MonthlyExpenses).toFixed(2));
     currentDebtCeiling.innerHTML = "$" + addCommas((@Model.Customer.MonthlyIncome * .43).toFixed(2));
 </script>
 

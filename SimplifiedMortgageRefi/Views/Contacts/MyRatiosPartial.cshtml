@@ -1,4 +1,4 @@
-﻿@model SimplifiedMortgageRefi.ViewModels.IndexCustomerViewModel
+﻿@model SimplifiedMortgageRefi.ViewModels.ContactCustomerViewModel
 <!-- Content Row -->
 <div class="row">
 
@@ -68,13 +68,13 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Estimated Property Value</div>
                         @{
 
-                            if (Model.Application.Property.AssessedValue == 0)
+                            if (Model.Property.AssessedValue == 0)
                             {
                                 <form asp-action="EditPropertyValue">
                                     <div class="input-group user">
                                         <i class="input-group-addon glyphicon glyphicon-usd" style="float:left"></i>
                                         <div style="overflow: hidden; padding-left: .5em; padding-right: .5em;">
-                                            <input asp-for="Application.Property.AssessedValue" class="form-control form-control-user" style="width:100%" />
+                                            <input asp-for="Property.AssessedValue" class="form-control form-control-user" style="width:100%" />
                                         </div>
                                         <input type="submit" value="Save" class="btn btn-primary" style="float: right" />
                                     </div>
