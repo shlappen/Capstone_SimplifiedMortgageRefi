@@ -17,3 +17,17 @@ function addCommas(nStr) {
 $(document).ready(function () {
 	$('#myTable').DataTable();
 });
+
+$('.multiple-items').slick({
+	arrows: true,
+	infinite: true,
+	slidesToShow: 2,
+	slidesToScroll: 1
+});
+
+
+$("#editCurrentMortgage").click(function () {
+    $.get('@Url.Action("EditCurrentMortgage","Customers")', {}, function (response) {
+        $("#Display").html(response);
+    });
+});
