@@ -15,7 +15,8 @@
         </div>
         <div class="p-3 collapse" id="mtgDetails">
             <form class="user" asp-action="EditLoanProfile">
-                <input type="hidden" asp-for="LoanProfiles.FirstOrDefault().Id" />
+                @{ int id = Model.LoanProfiles.FirstOrDefault().Id;}
+                <input type="hidden" asp-for="@id" />
                 <div class="col-md-12">
                     <div class="form-group row">
                         <label class="col-sm-5 col-form-label">New Loan Amount</label>

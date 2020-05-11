@@ -74,9 +74,70 @@ namespace SimplifiedMortgageRefi.Controllers
                 contact.DateTime = DateTime.Now;
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction("Create", id);
             }
             return View(contact);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateLoanProfile([Bind("Id")] Application application,
+[Bind("Term,Rate,LoanAmount,ClosingCost")] LoanProfile loanProfile)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var purposeId = _context.LoanProfiles.Where(l => l.ApplicationId == application.Id).Select(p => p.PurposeId).FirstOrDefault();
+                loanProfile.Originator = "Customer";
+                loanProfile.ApplicationId = application.Id;
+                loanProfile.PurposeId = purposeId;
+
+
+                _context.Add(loanProfile);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Create", application.Id);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditLoanProfile(int id, [Bind("Id,Term,ClosingCost,LoanAmount,Rate")] LoanProfile loanProfile)
+        
+        {
+
+
+            var loanProfileInDb = _context.LoanProfiles.Where(c => c.Id == loanProfile.Id).SingleOrDefault();
+            if (id != loanProfile.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                //try
+                //{
+                    loanProfileInDb.Rate = loanProfile.Rate;
+                    loanProfileInDb.Term = loanProfile.Term;
+                    loanProfileInDb.LoanAmount = loanProfile.LoanAmount;
+                    loanProfileInDb.ClosingCost = loanProfile.ClosingCost;
+                    _context.Update(loanProfileInDb);
+                    await _context.SaveChangesAsync();
+                //};
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!CustomerExists(customer.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                return RedirectToAction("Create", "Contacts", $"{id}");
+            }
+            return View();
         }
 
         // GET: Contacts/Edit/5
