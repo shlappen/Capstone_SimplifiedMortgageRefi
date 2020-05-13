@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using SimplifiedMortgageRefi.Data;
 using SimplifiedMortgageRefi.Models;
@@ -74,7 +75,9 @@ namespace SimplifiedMortgageRefi.Controllers
                 contact.DateTime = DateTime.Now;
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", id);
+
+
+                return RedirectToAction("Create", new { id = id });
             }
             return View(contact);
         }
@@ -131,11 +134,11 @@ namespace SimplifiedMortgageRefi.Controllers
                 //        return NotFound();
                 //    }
                 //    else
-                //    {
+                //    {$"{id}"
                 //        throw;
                 //    }
                 //}
-                return RedirectToAction("Create", "Contacts", $"{id}");
+                return RedirectToAction("Create", "Contacts", new { id = loanProfileInDb.ApplicationId });
             }
             return View();
         }
