@@ -30,55 +30,54 @@
                             <hr />
                             <div class="row">
                                 <div>
-                                    <form asp-action="Create">
+                                    <form asp-action="Create" id="form">
                                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 @*<label asp-for="@Model.Customer.FirstName" class="control-label"></label>*@
-                                                <input asp-for="@Model.Customer.FirstName" class="form-control form-control-user" placeholder="First Name" />
-                                                <span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
+                                                <input asp-for="@Model.FirstName" class="form-control form-control-user" placeholder="First Name" />
+                                                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-6">
                                                 @*<label asp-for="@Model.Customer.LastName" class="control-label"></label>*@
-                                                <input asp-for="@Model.Customer.LastName" class="form-control form-control-user" placeholder="Last Name" />
-                                                <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
+                                                <input asp-for="@Model.LastName" class="form-control form-control-user" placeholder="Last Name" />
+                                                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             @*<label asp-for="@Model.Address.Street" class="control-label"></label>*@
-                                            <input asp-for="@Model.Address.Street" class="form-control" placeholder="Street Address" />
-                                            <span asp-validation-for="@Model.Address.Street" class="text-danger"></span>
+                                            <input asp-for="@Model.Street" class="form-control" placeholder="Street Address" />
+                                            <span asp-validation-for="@Model.Street" class="text-danger"></span>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-5 mb-3 mb-sm-0">
-                                                <input asp-for="@Model.Address.City" class="form-control form-control-user" placeholder="City" />
-                                                <span asp-validation-for="@Model.Address.City" class="text-danger"></span>
+                                                <input asp-for="@Model.City" class="form-control form-control-user" placeholder="City" />
+                                                <span asp-validation-for="@Model.City" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-4">
                                                 @*<label asp-for="@Model.Address.StateId" class="control-label"></label>*@
-                                                <select asp-for="@Model.Address.StateId" class="form-control form-control-user" asp-items=ViewBag.States placeholder="Select"></select>
+                                                <select asp-for="@Model.StateId" class="form-control form-control-user" asp-items=ViewBag.States placeholder="Select"></select>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 @*<label class="control-label">Zip</label>*@
-                                                <input asp-for="@Model.Address.ZipCode" class="form-control form-control-user" placeholder="Zip" />
-                                                <span asp-validation-for="@Model.Address.ZipCode" class="text-danger"></span>
+                                                <input asp-for="@Model.ZipCode" class="form-control form-control-user" placeholder="Zip" />
+                                                <span asp-validation-for="@Model.ZipCode" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">What is the value of your home in today's market?</label>
-                                            <input asp-for="Property.AssessedValue" class="form-control form-control-user" />
-                                            <span asp-validation-for="@Model.Property.AssessedValue" class="text-danger"></span>
+                                            <input name="AssessedValue" class="form-control form-control-user" id="value" />
                                         </div>
+
                                         <div class="form-group">
                                             <label class="control-label">What is your monthly income?</label>
-                                            <input asp-for="Customer.MonthlyIncome" class="form-control form-control-user" />
-                                            <span asp-validation-for="@Model.Customer.MonthlyIncome" class="text-danger"></span>
+                                            <input name="MonthlyIncome" class="form-control form-control-user" id="income" />
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">Credit Score</label>
-                                            <select asp-for="Customer.CreditScore" class="form-control form-control-user" style="width:100%">
+                                            <select asp-for="@Model.CreditScore" class="form-control form-control-user" style="width:100%">
                                                 <option selected="selected" value="0">Choose a FICO score range</option>
                                                 <option value="740">Excellent (740 and above)</option>
                                                 <option value="700">Very Good (700-739)</option>
@@ -89,16 +88,16 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label">What is your goal in refinancing your mortgage?</label>
-                                            <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
+                                            <select asp-for="@Model.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
                                         </div>
                                         @*<div class="form-group">
-            <label class="control-label">Please select the property type of this home.</label>
-            <select asp-for="@Model.Property.PropertyTypeId" class="form-control form-control-user" asp-items="ViewBag.PropertyTypes"></select>
-        </div>
-        <div class="form-group">
-            <label class="control-label">What is your goal in refinancing your mortgage?</label>
-            <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
-        </div>*@
+                                                <label class="control-label">Please select the property type of this home.</label>
+                                                <select asp-for="@Model.Property.PropertyTypeId" class="form-control form-control-user" asp-items="ViewBag.PropertyTypes"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">What is your goal in refinancing your mortgage?</label>
+                                                <select asp-for="@Model.LoanProfile.PurposeId" class="form-control form-control-user" asp-items="ViewBag.Purposes"></select>
+                                            </div>*@
                                         <div>
 
                                         </div>
@@ -119,13 +118,12 @@
 </body>
 
 
-@*<div>
-        <a asp-action="Index">Back to List</a>
-    </div>*@<div>
+<div>
     <a asp-action="Index"></a>
 </div>
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }

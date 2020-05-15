@@ -2,28 +2,57 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+$(function () {
+    $('#income').maskMoney({ prefix: '$ ', affixesStay: false, reverse: false });
+});
+
+$(function () {
+    $('.liability').maskMoney({ prefix: '$ ', affixesStay: false, reverse: false });
+});
+
+$(function () {
+    $('#value').maskMoney({ prefix: '$ ', precision: '0', affixesStay: false, reverse: false });
+});
+
+
+
+
+
+//$("#form").submit(function () {
+//    $('#currency').val($('#currency').maskMoney({ thousands: '', precision: '0', decimal: '.' });
+//});
+
+$("#form").submit(function () {
+    parseFloat($('#value').val($('#value').val().replace(/,/g, '')));
+    parseFloat($('#income').val($('#income').val().replace(/,/g, '')));
+    parseFloat($('.liability').val($('#income').val().replace(/,/g, '')));
+    //$('#income').val($('#income').maskMoney('unmask')[0]);
+
+});
+
 function addCommas(nStr) {
-	nStr += '';
-	x = nStr.split('.');
-	x1 = x[0];
-	x2 = x.length > 1 ? '.' + x[1] : '';
-	var rgx = /(\d+)(\d{3})/;
-	while (rgx.test(x1)) {
-		x1 = x1.replace(rgx, '$1' + ',' + '$2');
-	}
-	return x1 + x2;
-}
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+};
 
 $(document).ready(function () {
-	$('#myTable').DataTable();
+    $('#myTable').DataTable();
 });
 
 
 $('.multiple-items').slick({
-	arrows: true,
-	infinite: true,
-	slidesToShow: 2,
-	slidesToScroll: 1
+    arrows: true,
+    infinite: true,
+    slidesToShow: 2,
+    slidesToScroll: 1
 });
 
 
@@ -91,3 +120,18 @@ $("#editCurrentMortgage").click(function () {
         handler.open();
     });
 })(jQuery);
+
+
+$(document).ready(function () {
+    $('.date').mask('11/11/1111');
+    $('.time').mask('00:00:00');
+    $('.date_time').mask('00/00/0000 00:00:00');
+    $('.cep').mask('00000-000');
+    $('.phone').mask('0000-0000');
+    $('.phone_with_ddd').mask('(00) 0000-0000');
+    $('.phone_us').mask('(000) 000-0000');
+    $('.mixed').mask('AAA 000-S0S');
+    $('.cpf').mask('000.000.000-00', { reverse: true });
+    $('.money').mask('000,000,000,000,000.00', { reverse: true });
+});
+

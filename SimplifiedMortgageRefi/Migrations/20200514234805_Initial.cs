@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SimplifiedMortgageRefi.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -522,8 +522,8 @@ namespace SimplifiedMortgageRefi.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "37e953cf-c02b-4675-8fde-7dc2964f8f47", "7268de9e-93ad-4c67-9a5b-0ad26a1a589f", "Customer", "CUSTOMER" },
-                    { "a4c3c161-a00a-4815-9ee4-b1041896f082", "cc75b120-bfca-4bfb-aee8-f01069821c3e", "Lender", "LENDER" }
+                    { "3baa9337-f933-477e-afb1-45d0e46a685e", "b5aea711-665e-4265-9f81-5b439a49ef49", "Customer", "CUSTOMER" },
+                    { "15844e12-b00f-4bc5-8970-3ddc567a696a", "ef83d60a-5d1f-4e4f-969a-cdf137412469", "Lender", "LENDER" }
                 });
 
             migrationBuilder.InsertData(

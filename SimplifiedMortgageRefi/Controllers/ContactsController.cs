@@ -98,7 +98,7 @@ namespace SimplifiedMortgageRefi.Controllers
 
                 _context.Add(loanProfile);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Create", application.Id);
+                return RedirectToAction("Create", "Contacts", new { id = application.Id });
             }
             return View();
         }

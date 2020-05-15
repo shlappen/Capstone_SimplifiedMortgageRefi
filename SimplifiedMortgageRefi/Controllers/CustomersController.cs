@@ -24,15 +24,23 @@ namespace SimplifiedMortgageRefi.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
+
             ContactCustomerViewModel viewModel = new ContactCustomerViewModel();
             
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId == userId).FirstOrDefault();
-
             viewModel.Customer = customer;
+            if(customer == null)
+            {
+                return RedirectToAction(nameof(Create));
+            }
             var application = await _context.Applications_Customers.Where(c => c.CustomerId == customer.Id).Select(d => d.Application).FirstOrDefaultAsync();
             var loanProfiles = await _context.LoanProfiles.Where(c => c.ApplicationId == application.Id).ToListAsync();
             var propertyInDb = await _context.Customers_Properties.Where(p => p.CustomerId == customer.Id).Select(q => q.Property).FirstOrDefaultAsync();
+            if(propertyInDb.Rate == 0)
+            {
+                return RedirectToAction(nameof(EditCurrentMortgage));
+            }
             var liabilities = await _context.Liabilities.Where(l => l.ApplicationId == application.Id).ToListAsync();
 
             viewModel.Property = propertyInDb;

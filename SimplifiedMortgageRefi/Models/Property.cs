@@ -12,6 +12,7 @@ namespace SimplifiedMortgageRefi.Models
         public int AddressId {get; set; }
         public Address Address { get; set; }
 
+
         public int AssessedValue { get; set; }
         public double LoanToValue { get; set; }
         public double DebtToIncome { get; set; }

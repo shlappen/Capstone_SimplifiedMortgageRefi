@@ -48,15 +48,15 @@ namespace SimplifiedMortgageRefi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "37e953cf-c02b-4675-8fde-7dc2964f8f47",
-                            ConcurrencyStamp = "7268de9e-93ad-4c67-9a5b-0ad26a1a589f",
+                            Id = "3baa9337-f933-477e-afb1-45d0e46a685e",
+                            ConcurrencyStamp = "b5aea711-665e-4265-9f81-5b439a49ef49",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "a4c3c161-a00a-4815-9ee4-b1041896f082",
-                            ConcurrencyStamp = "cc75b120-bfca-4bfb-aee8-f01069821c3e",
+                            Id = "15844e12-b00f-4bc5-8970-3ddc567a696a",
+                            ConcurrencyStamp = "ef83d60a-5d1f-4e4f-969a-cdf137412469",
                             Name = "Lender",
                             NormalizedName = "LENDER"
                         });
